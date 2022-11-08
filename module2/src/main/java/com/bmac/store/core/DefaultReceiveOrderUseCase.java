@@ -4,13 +4,13 @@ import com.bmac.common.cutoff.DailyCutoffTime;
 import com.bmac.common.domain.Product;
 import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.*;
-import com.bmac.store.ports.in.order.ReceiveOrderCommand;
-import com.bmac.store.ports.in.order.ReceiveOrderUseCase;
-import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
-import com.bmac.store.ports.out.batch.BatchCreatePort;
-import com.bmac.store.ports.out.batch.BatchLoadPort;
-import com.bmac.store.ports.out.order.OrderCreatePort;
-import com.bmac.store.ports.out.product.ProductLoadPort;
+import com.bmac.store.ports.in.ReceiveOrderCommand;
+import com.bmac.store.ports.in.ReceiveOrderUseCase;
+import com.bmac.store.ports.out.BatchActivityCreatePort;
+import com.bmac.store.ports.out.BatchCreatePort;
+import com.bmac.store.ports.out.BatchLoadPort;
+import com.bmac.store.ports.out.OrderCreatePort;
+import com.bmac.store.ports.out.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +47,7 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
     }
 
     @Override
-    public void receive(ReceiveOrderCommand command) {
+    public UUID receive(ReceiveOrderCommand command) {
         Map<Product, Integer> orderLine = loadProducts(command.orderLine());
         LocalDate date = DailyCutoffTime.hasPassed() ? LocalDate.now().plusDays(1) : LocalDate.now();
         Optional<Batch> optional = batchLoader.loadByDateTime(date);
@@ -64,6 +64,8 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
         orderCreator.create(order);
         BatchActivity activity = batch.addOrder(order);
         batchActivityCreator.create(batch.getId(), activity);
+
+        return order.getId();
     }
 
     private Map<Product, Integer> loadProducts(Map<UUID, Integer> orderLine) {

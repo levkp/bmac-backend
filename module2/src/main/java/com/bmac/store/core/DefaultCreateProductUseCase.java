@@ -1,9 +1,9 @@
 package com.bmac.store.core;
 
 import com.bmac.common.domain.Product;
-import com.bmac.store.ports.in.product.CreateProductCommand;
-import com.bmac.store.ports.in.product.CreateProductUseCase;
-import com.bmac.store.ports.out.product.ProductCreatePort;
+import com.bmac.store.ports.in.CreateProductCommand;
+import com.bmac.store.ports.in.CreateProductUseCase;
+import com.bmac.store.ports.out.ProductCreatePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

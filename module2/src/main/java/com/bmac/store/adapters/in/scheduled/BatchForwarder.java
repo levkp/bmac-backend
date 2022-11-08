@@ -2,8 +2,8 @@ package com.bmac.store.adapters.in.scheduled;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
 import com.bmac.store.core.exception.StoreEntityNotFoundException;
-import com.bmac.store.ports.in.batch.ForwardBatchCommand;
-import com.bmac.store.ports.in.batch.ForwardBatchUseCase;
+import com.bmac.store.ports.in.ForwardBatchCommand;
+import com.bmac.store.ports.in.ForwardBatchUseCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class BatchForwarder {
         this.forwardBatch = forwardBatch;
     }
 
-    @Scheduled(cron = DailyCutoffTime.CUTOFF_CRON)
+    @Scheduled(cron = DailyCutoffTime.CRON)
     public void forwardDailyBatch() {
         log.info("Forwarding daily batch");
         forwardBatch.forward(new ForwardBatchCommand(LocalDate.now()));

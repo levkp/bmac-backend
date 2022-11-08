@@ -1,10 +1,13 @@
 package com.bmac.store.adapters.out.jpa.order;
 
+import com.bmac.store.adapters.out.jpa.batch.BatchJpaEntity;
+import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
 import com.bmac.common.domain.Product;
-import com.bmac.store.ports.out.order.OrderCreatePort;
-import com.bmac.store.ports.out.order.OrderLoadPort;
-import com.bmac.store.ports.out.product.ProductLoadPort;
+import com.bmac.store.ports.out.BatchLoadPort;
+import com.bmac.store.ports.out.OrderCreatePort;
+import com.bmac.store.ports.out.OrderLoadPort;
+import com.bmac.store.ports.out.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,10 +21,15 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
 
     private final ProductLoadPort productLoader;
 
+    private final BatchLoadPort batchLoader;
+
     @Autowired
-    public OrderRepositoryAdapter(OrderRepository repository, ProductLoadPort productLoader) {
+    public OrderRepositoryAdapter(OrderRepository repository,
+                                  ProductLoadPort productLoader,
+                                  BatchLoadPort batchLoader) {
         this.repository = repository;
         this.productLoader = productLoader;
+        this.batchLoader = batchLoader;
     }
 
     @Override
@@ -64,5 +72,21 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
         }
 
         return orders;
+    }
+
+    @Override
+    public Optional<Order> loadById(UUID id) {
+        Optional<OrderJpaEntity> optional = repository.findById(id);
+        if (optional.isEmpty()) return Optional.empty();
+
+        OrderJpaEntity orderJpaEntity = optional.get();
+        Optional<Batch> batchOptional = batchLoader.loadById(orderJpaEntity.getBatchId());
+
+        if (batchOptional.isEmpty()) {
+            // Todo this should never happen
+            return Optional.empty();
+        }
+
+        return Optional.of(new Order(orderJpaEntity.getId(), batchOptional.get(), orderJpaEntity.getTimestamp()));
     }
 }

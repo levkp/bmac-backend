@@ -57,4 +57,8 @@ public class OrderJpaEntity {
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
+
+    public UUID getBatchId() {
+        return batchId;
+    }
 }

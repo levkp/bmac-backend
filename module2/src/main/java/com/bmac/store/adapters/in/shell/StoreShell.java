@@ -1,7 +1,7 @@
 package com.bmac.store.adapters.in.shell;
 
-import com.bmac.store.ports.in.batch.ForwardBatchCommand;
-import com.bmac.store.ports.in.batch.ForwardBatchUseCase;
+import com.bmac.store.ports.in.ForwardBatchCommand;
+import com.bmac.store.ports.in.ForwardBatchUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.shell.standard.ShellComponent;

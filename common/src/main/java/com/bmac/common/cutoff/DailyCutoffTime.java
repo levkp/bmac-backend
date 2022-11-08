@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class DailyCutoffTime {
-    private static final LocalTime CUTOFF_TIME = LocalTime.of(22, 0);
-    public static final String CUTOFF_CRON = "1 22 * * *";
+    private static final LocalTime TIME = LocalTime.of(22, 0);
+    public static final String CRON = "1 22 * * *";
 
+    public static LocalDateTime ofToday() {
+        return TIME.atDate(LocalDate.now());
+    }
     public static boolean hasPassed() {
-        return CUTOFF_TIME.atDate(LocalDate.now()).isBefore(LocalDateTime.now());
+        return ofToday().isBefore(LocalDateTime.now());
     }
 
     private DailyCutoffTime() { }

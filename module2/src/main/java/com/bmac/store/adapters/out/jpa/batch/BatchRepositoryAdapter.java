@@ -1,14 +1,15 @@
 package com.bmac.store.adapters.out.jpa.batch;
 
 import com.bmac.store.domain.Batch;
-import com.bmac.store.domain.BatchActivity;
 import com.bmac.store.domain.BatchActivityWindow;
-import com.bmac.store.ports.out.batch.*;
+import com.bmac.store.ports.out.BatchActivityLoadPort;
+import com.bmac.store.ports.out.BatchCreatePort;
+import com.bmac.store.ports.out.BatchLoadPort;
+import com.bmac.store.ports.out.BatchUpdatePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,22 +32,12 @@ public class BatchRepositoryAdapter implements BatchCreatePort, BatchLoadPort, B
 
     @Override
     public Optional<Batch> loadByDateTime(LocalDate date) {
-        Optional<BatchJpaEntity> optional = repository.findByDate(date);
-        if (optional.isEmpty()) return Optional.empty();
+        return handleQueryResult(repository.findByDate(date));
+    }
 
-        BatchJpaEntity jpaBatch = optional.get();
-        Batch batch = new Batch();
-        batch.setId(jpaBatch.getId());
-        batch.setDate(jpaBatch.getDate());
-        batch.setCreateTime(jpaBatch.getCreateTime());
-        batch.setActivityWindow(new BatchActivityWindow());
-
-        if (jpaBatch.getForwardTime() != null) {
-            batch.setForwardTime(jpaBatch.getForwardTime());
-        }
-
-        activityLoader.loadByBatchId(batch.getId()).forEach(batch::addActivity);
-        return Optional.of(batch);
+    @Override
+    public Optional<Batch> loadById(UUID id) {
+        return handleQueryResult(repository.findById(id));
     }
 
     @Override
@@ -57,5 +48,25 @@ public class BatchRepositoryAdapter implements BatchCreatePort, BatchLoadPort, B
         } else {
             repository.save(new BatchJpaEntity(batch.getId(), batch.getDate(), batch.getCreateTime(), batch.getForwardTime()));
         }
+    }
+
+
+    private Optional<Batch> handleQueryResult(Optional<BatchJpaEntity> optional) {
+        if (optional.isEmpty()) return Optional.empty();
+        BatchJpaEntity jpaEntity = optional.get();
+
+        Batch batch = new Batch();
+        batch.setId(jpaEntity.getId());
+        batch.setDate(jpaEntity.getDate());
+        batch.setCreateTime(jpaEntity.getCreateTime());
+        batch.setActivityWindow(new BatchActivityWindow());
+
+        if (jpaEntity.getForwardTime() != null) {
+            batch.setForwardTime(jpaEntity.getForwardTime());
+        }
+
+        activityLoader.loadByBatchId(batch.getId()).forEach(batch::addActivity);
+
+        return Optional.of(batch);
     }
 }

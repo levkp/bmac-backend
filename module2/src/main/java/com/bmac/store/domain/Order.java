@@ -11,7 +11,7 @@ public class Order {
     private Batch batch;
     private final LocalDateTime timestamp;
 
-    private final Map<Product, Integer> orderLine;
+    private Map<Product, Integer> orderLine;
 
     public Order(UUID id, Batch batch, LocalDateTime timestamp, Map<Product, Integer> orderLine) {
         this.id = id;
@@ -24,6 +24,12 @@ public class Order {
         this.id = id;
         this.timestamp = timestamp;
         this.orderLine = orderLine;
+    }
+
+    public Order(UUID id, Batch batch, LocalDateTime timestamp) {
+        this.id = id;
+        this.batch = batch;
+        this.timestamp = timestamp;
     }
 
     public Batch getBatch() {

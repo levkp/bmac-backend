@@ -9,16 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class InvalidDtoException extends RuntimeException{
-    private List<String> messages = new ArrayList<>();
+    private final List<String> messages;
 
     public InvalidDtoException(BindingResult br) {
         messages = br.getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-    }
-
-    public InvalidDtoException(String message) {
-        messages.add(message);
     }
 
     public List<String> getMessages() {

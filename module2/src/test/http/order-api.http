@@ -15,4 +15,4 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/store
+DELETE http://localhost:8081/store/api/orders/ HTTP/1.1
