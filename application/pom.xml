@@ -33,6 +33,11 @@
             <artifactId>module2</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>be.kdg.prog6</groupId>
+            <artifactId>module3</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

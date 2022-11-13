@@ -4,10 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
+        <module>application</module>
         <module>common</module>
         <module>module1</module>
         <module>module2</module>
-        <module>application</module>
+        <module>module3</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
