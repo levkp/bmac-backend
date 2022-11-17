@@ -1,11 +1,11 @@
 package be.kdg.prog6.thebakery.warehouse.domain.order;
 
-import be.kdg.prog6.thebakery.warehouse.domain.Ingredient;
+import be.kdg.prog6.thebakery.warehouse.domain.Item;
 
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public abstract class Order {
     UUID id;
-    private List<Ingredient> orderLine;
+    private Map<Item, Double> orderLine;
 }

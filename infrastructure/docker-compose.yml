@@ -18,6 +18,26 @@ services:
 #      - ./mysql/data:/var/lib/mysql
     user: mysql
 
+  fruit_mq:
+    image: rabbitmq:3-management-alpine
+    container_name: fruit_mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+      - "5672:5672" #AMQP
+      - "15672:15672" #MGMT
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:15672" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - backend
+#    volumes:
+#      - ./rabbitmq/data/:/var/lib/rabbitmq/
+#      - ./rabbitmq/log/:/var/log/rabbitmq/
+
 networks:
   backend:
     name: back-network

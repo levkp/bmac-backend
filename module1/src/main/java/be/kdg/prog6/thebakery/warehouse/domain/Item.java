@@ -3,10 +3,10 @@ package be.kdg.prog6.thebakery.warehouse.domain;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
-public class Ingredient {
+public class Item {
     UUID id;
     double minimumAmount;
-    private IngredientType type;
-    private IngredientUnit unit;
+    private ItemType type;
+    private ItemUnit unit;
     private String name;
 }

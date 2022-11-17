@@ -5,8 +5,7 @@ import java.util.Optional;
 
 @SuppressWarnings("unused")
 public class Stock {
-    Ingredient ingredient;
+    Item item;
     Optional<LocalDate> expiry;
     double amount;
-
 }

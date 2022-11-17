@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shipment {
+    LocalDate departure;
     LocalDate arrival;
     List<Stock> shipmentLine = new ArrayList<>();
 }
