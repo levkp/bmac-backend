@@ -1,10 +1,10 @@
-package be.kdg.prog6.thebakery.domain;
+package com.bmac.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DomainApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {

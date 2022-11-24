@@ -16,7 +16,7 @@
         <version>2.7.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>be.kdg.prog6</groupId>
+    <groupId>com.bmac</groupId>
     <artifactId>thebakery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>thebakery</name>

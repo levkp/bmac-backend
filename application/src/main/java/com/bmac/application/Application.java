@@ -1,4 +1,4 @@
-package be.kdg.prog6.thebakery.application;
+package com.bmac.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.FilterType;
 
 @SpringBootApplication
 @ComponentScan(excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.REGEX, pattern="be.kdg.prog6.*.*Application")
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern="com.bmac.*.*Application")
 })
 public class Application {
 

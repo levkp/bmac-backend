@@ -1,4 +1,4 @@
-package be.kdg.prog6.thebakery.common.events;
+package com.bmac.common.events;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

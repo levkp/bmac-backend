@@ -1,4 +1,4 @@
-package be.kdg.prog6.thebakery.application;
+package com.bmac.application;
 
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.TopicExchange;
