@@ -1,6 +1,6 @@
-package be.kdg.prog6.thebakery.warehouse.domain.order;
+package be.kdg.prog6.thebakery.warehouse.domain.order.inbound;
 
-import be.kdg.prog6.thebakery.warehouse.domain.Stock;
+import be.kdg.prog6.thebakery.warehouse.domain.item.Stock;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

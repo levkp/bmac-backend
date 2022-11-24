@@ -1,4 +1,4 @@
-package be.kdg.prog6.thebakery.warehouse.domain;
+package be.kdg.prog6.thebakery.warehouse.domain.item;
 
 import java.util.UUID;
 

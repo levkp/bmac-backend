@@ -1,9 +1,18 @@
 package be.kdg.prog6.thebakery.common.events;
 
 public enum EventType {
-    BakeryOutboundOrderCreated,
+    StoreOrderReceived,
+    StoreOrderForwarded,
 
-    // Bakery and Warehouse
+    FactoryOrderReceived,
+    FactoryDeliveryCreated,
+
+    FactoryIngredientRequestCreated,
+    FactoryIngredientDeliveryReceived,
+
+    WarehouseOutboundOrderReceived,
+    WarehouseDeliveryCreated,
+
     WarehouseInboundOrderCreated,
-    WarehouseOutboundOrderReceived
+    WarehouseShipmentReceived
 }
