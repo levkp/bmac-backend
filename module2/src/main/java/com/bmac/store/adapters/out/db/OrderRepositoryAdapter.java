@@ -1,9 +1,11 @@
 package com.bmac.store.adapters.out.db;
 
 import com.bmac.store.domain.Order;
-import com.bmac.store.ports.out.OrderCreatePort;
+import com.bmac.store.ports.out.OrderReceivePort;
+import org.springframework.stereotype.Repository;
 
-public class OrderRepositoryAdapter implements OrderCreatePort {
+@Repository
+public class OrderRepositoryAdapter implements OrderReceivePort {
 
     private final OrderRepository repository;
 

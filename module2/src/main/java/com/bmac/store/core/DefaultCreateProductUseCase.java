@@ -1,5 +1,6 @@
 package com.bmac.store.core;
 
+import com.bmac.store.domain.Product;
 import com.bmac.store.ports.in.CreateProductCommandMVP;
 import com.bmac.store.ports.in.CreateProductUseCase;
 import com.bmac.store.ports.out.ProductCreatePort;
@@ -18,6 +19,6 @@ public class DefaultCreateProductUseCase implements CreateProductUseCase {
 
     @Override
     public void create(CreateProductCommandMVP command) {
-
+        productCreator.create(new Product(command.name(), command.price()));
     }
 }

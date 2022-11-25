@@ -11,12 +11,15 @@ public class Product {
     private final UUID uuid;
 
     @Getter
-    private String name;
+    private final String name;
 
     @Getter
     double price;
 
-    public Product() {
+    public Product(String name, double price) {
         uuid = UUID.randomUUID();
+        this.name = name;
+        this.price = price;
     }
+
 }

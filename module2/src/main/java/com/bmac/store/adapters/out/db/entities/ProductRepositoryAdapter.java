@@ -3,7 +3,9 @@ package com.bmac.store.adapters.out.db.entities;
 import com.bmac.store.adapters.out.db.ProductRepository;
 import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.ProductCreatePort;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ProductRepositoryAdapter implements ProductCreatePort {
 
     private final ProductRepository repository;
