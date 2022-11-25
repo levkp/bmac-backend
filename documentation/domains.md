@@ -10,6 +10,15 @@ Store Managers can manipulate the offering, creating or removing products.
 
 Customers can submit a new recipe, that the Store Manager receives and decides to create a new product for it or not.
 
+## Glossary
+
+| Concept | Definition | Synonyms    | Remarks |
+|---------|------------|-------------|---------|
+| Batch   |            | Order batch |         |
+| Order   |            |             |         |
+| Product |            |             |         |
+
+
 ### Model
 
 ```mermaid

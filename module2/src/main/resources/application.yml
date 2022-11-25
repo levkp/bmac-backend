@@ -11,6 +11,8 @@ logging:
     name: store.log
 
 spring:
+  profiles:
+    active: dev
   config:
     additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
