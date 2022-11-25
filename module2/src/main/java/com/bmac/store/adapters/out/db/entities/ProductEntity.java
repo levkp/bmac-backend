@@ -1,5 +1,7 @@
-package com.bmac.store.adapters.out.db;
+package com.bmac.store.adapters.out.db.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -7,12 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "customer")
-public class CustomerJpaEntity {
-
+@Table(name = "products")
+@EqualsAndHashCode
+@AllArgsConstructor
+public class ProductEntity {
     @Id
     @Type(type = "uuid-char")
     private UUID uuid;
@@ -20,9 +22,10 @@ public class CustomerJpaEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column
-    private LocalDate clientSince;
+    @Column(nullable = false)
+    private double price;
 
+    protected ProductEntity() {
 
-    public CustomerJpaEntity() { }
+    }
 }
