@@ -1,16 +1,22 @@
 package com.bmac.store.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.UUID;
 
 @EqualsAndHashCode
 public class Product {
-    private final UUID id;
+    @Getter
+    private final UUID uuid;
+
+    @Getter
     private String name;
+
+    @Getter
     double price;
 
     public Product() {
-        id = UUID.randomUUID();
+        uuid = UUID.randomUUID();
     }
 }

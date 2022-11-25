@@ -1,21 +1,24 @@
 package com.bmac.store.domain;
 
+import lombok.AllArgsConstructor;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@AllArgsConstructor
 public class Order {
     private final LocalDateTime timestamp;
     private final Map<Product, Integer> orderLine;
-    private final UUID id;
-    private final Customer customer;
+    private final UUID uuid;
+    private OrderStatus status;
 
-    public Order(Customer customer) {
-        id = UUID.randomUUID();
+    // Todo: MVP only: order must have a customer
+    public Order() {
+        uuid = UUID.randomUUID();
         timestamp = LocalDateTime.now();
         orderLine = new HashMap<>();
-        this.customer = customer;
-//        status = new OrderStatus(LocalDateTime.now(), OrderStatus.Status.RECEIVED);
+        status = OrderStatus.RECEIVED;
     }
 }
