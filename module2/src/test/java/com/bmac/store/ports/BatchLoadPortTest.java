@@ -1,9 +1,9 @@
-package com.bmac.store;
+package com.bmac.store.ports;
 
+import com.bmac.store.adapters.out.db.BatchRepositoryAdapter;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.ports.out.BatchLoadPort;
-
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -15,11 +15,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-class CustomerApplicationTests {
-
-    @Test
-    void contextLoads() {
-    }
+public class BatchLoadPortTest {
 
     @Autowired
     BatchLoadPort port;
@@ -33,6 +29,4 @@ class CustomerApplicationTests {
         // Assert
         assertTrue(optional.isEmpty());
     }
-
-
 }

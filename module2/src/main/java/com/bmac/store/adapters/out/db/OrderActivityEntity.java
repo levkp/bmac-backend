@@ -1,4 +1,4 @@
-package com.bmac.store.adapters.out.db.entities;
+package com.bmac.store.adapters.out.db;
 
 import lombok.Setter;
 import org.hibernate.annotations.Type;

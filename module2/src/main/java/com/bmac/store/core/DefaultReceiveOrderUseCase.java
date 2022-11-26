@@ -6,10 +6,16 @@ import com.bmac.store.ports.out.OrderReceivePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
+
 @Service
 public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
-    OrderReceivePort orderReceiver;
+    // Todo: MVP only
+    private final LocalTime deadline = LocalTime.of(22, 0);
+
+    private final OrderReceivePort orderReceiver;
+
 
     @Autowired
     public DefaultReceiveOrderUseCase(OrderReceivePort orderReceiver) {
@@ -18,6 +24,7 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
     @Override
     public void receive(ReceiveOrderCommandMVP command) {
+
 
 
     }
