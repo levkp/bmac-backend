@@ -11,11 +11,9 @@ import java.util.UUID;
 public class Batch {
     private final UUID uuid;
     private final LocalDate date;
-    private final BatchStatus status;
 
-    public Batch(UUID uuid, LocalDate date, BatchStatus status) {
+    public Batch(UUID uuid, LocalDate date) {
         this.date = date;
         this.uuid = uuid;
-        this.status = status;
     }
 }

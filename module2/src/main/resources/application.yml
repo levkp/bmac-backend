@@ -9,6 +9,7 @@ server:
 logging:
   file:
     name: store.log
+#    path:
 
 spring:
   profiles:

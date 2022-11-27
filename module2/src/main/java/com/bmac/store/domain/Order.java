@@ -1,24 +1,25 @@
 package com.bmac.store.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
+@Getter
 @AllArgsConstructor
 public class Order {
+    private final Batch batch;
     private final LocalDateTime timestamp;
-    private final Map<Product, Integer> orderLine;
+    private final Product product;
     private final UUID uuid;
-    private OrderStatus status;
+    private final double amount;
 
-    // Todo: MVP only: order must have a customer
-    public Order() {
-        uuid = UUID.randomUUID();
-        timestamp = LocalDateTime.now();
-        orderLine = new HashMap<>();
-        status = OrderStatus.RECEIVED;
+    public Order(Batch batch, Product product, double amount) {
+        this.batch = batch;
+        this.timestamp = LocalDateTime.now();
+        this.product = product;
+        this.uuid = UUID.randomUUID();
+        this.amount = amount;
     }
 }

@@ -1,10 +1,10 @@
 package com.bmac.common.events;
 
 public enum EventType {
-    StoreOrderReceived,
-    StoreOrderForwarded,
 
-    FactoryOrderReceived,
+    StoreOrderBatchForwarded,
+    FactoryOrderBatchReceived,
+
     FactoryDeliveryCreated,
 
     FactoryIngredientRequestCreated,

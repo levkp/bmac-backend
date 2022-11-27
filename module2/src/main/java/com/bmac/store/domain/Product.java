@@ -1,11 +1,13 @@
 package com.bmac.store.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.UUID;
 
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Product {
     @Getter
     private final UUID uuid;
@@ -21,5 +23,4 @@ public class Product {
         this.name = name;
         this.price = price;
     }
-
 }

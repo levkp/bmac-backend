@@ -4,38 +4,37 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "order_activities", schema = "store")
-public class OrderActivityEntity {
-
-    public enum OrderAction {
+@Table(schema = "store", name = "batch_activities")
+public class BatchActivityEntity {
+    public enum BatchAction {
         CREATE,
-        CANCEL,
         FORWARD
-    }
-
-    public OrderActivityEntity() {
-        timestamp = LocalDateTime.now();
     }
 
     @Id
     @Type(type = "uuid-char")
-    @Column(name = "uuid")
     @GeneratedValue(generator = "uuid")
     private UUID uuid;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    @Setter
-    private OrderAction action;
-
-    @Column(name = "order_id")
-    @Setter
     @Type(type = "uuid-char")
-    private UUID order;
+    @Column(nullable = false)
+    @Setter
+    private UUID batch;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Setter
+    private BatchAction activity;
+
+    @Column(nullable = false)
     private LocalDateTime timestamp;
+
+    public BatchActivityEntity() {
+        this.timestamp = LocalDateTime.now();
+    }
 }

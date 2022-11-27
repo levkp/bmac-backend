@@ -2,6 +2,7 @@ package com.bmac.store.adapters.out.db;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -12,8 +13,8 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-@EqualsAndHashCode
 @AllArgsConstructor
+@Getter
 public class ProductEntity {
     @Id
     @Type(type = "uuid-char")

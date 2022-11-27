@@ -1,5 +1,6 @@
 package com.bmac.store.adapters.in.api;
 
+import com.bmac.store.core.exception.ProductNotFoundException;
 import com.bmac.store.ports.in.ReceiveOrderCommandMVP;
 import com.bmac.store.ports.in.ReceiveOrderUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<String> store() {
-        return ResponseEntity.ok("");
+    @ExceptionHandler
+    public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }
