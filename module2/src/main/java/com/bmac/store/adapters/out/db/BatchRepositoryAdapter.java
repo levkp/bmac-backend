@@ -16,7 +16,6 @@ public class BatchRepositoryAdapter
         implements BatchLoadPort, BatchCreatePort, BatchActivityCreatePort {
 
     private final BatchRepository repository;
-
     private final BatchActivityRepository activityRepository;
 
     @Autowired

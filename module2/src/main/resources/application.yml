@@ -9,7 +9,7 @@ server:
 logging:
   file:
     name: store.log
-#    path:
+    path: module2/log/
 
 spring:
   profiles:

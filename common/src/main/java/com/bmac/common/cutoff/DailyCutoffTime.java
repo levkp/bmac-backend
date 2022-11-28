@@ -15,5 +15,5 @@ public class DailyCutoffTime {
         return !hasPassed();
     }
 
-    private DailyCutoffTime() {}
+    private DailyCutoffTime() { }
 }

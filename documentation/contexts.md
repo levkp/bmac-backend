@@ -1,6 +1,7 @@
-# Programming 6 - The domains of B-MaC
+# Programming 6 - The bounded contexts of B-MaC
 
-This document describes the 3 identified bounded contexts of B-MaC.
+This document describes the 3 identified domains of B-MaC.
+
 
 ## Store
 
@@ -10,7 +11,7 @@ Store Managers can manipulate the offering, creating or removing products.
 
 Customers can submit a new recipe, that the Store Manager receives and decides to create a new product for it or not.
 
-## Glossary
+### Glossary
 
 | Concept | Definition | Synonyms    | Remarks |
 |---------|------------|-------------|---------|
@@ -32,11 +33,7 @@ class Product
 class Customer
 
 
-class Recipe
-
 ```
-
-### Glossary
 
 cutoff time
 customer
@@ -50,6 +47,10 @@ recipe
 
 After the cutoff time, the Factory receives the orders the Store collected during the day.
 
+### Glossary
+
+
+### Model
 
 
 ---
@@ -57,18 +58,8 @@ After the cutoff time, the Factory receives the orders the Store collected durin
 ## Warehouse
 
 
-### **Model**
-
-```mermaid
-classDiagram
-
-class Order { 
-
-}
-```
-
-### **Glossary**
-
+### Glossary
+<a name="warehouse-glossary"></a>
 
 | Concept        | Definition | Synonyms                 | Remarks                    |
 |----------------|------------|--------------------------|----------------------------|
@@ -84,5 +75,8 @@ class Order {
 | Position       |            |                          |                            |
 
 
+### Model
 
+## Shared 
 
+### Glossary
