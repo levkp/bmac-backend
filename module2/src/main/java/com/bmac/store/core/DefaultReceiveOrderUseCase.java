@@ -1,22 +1,22 @@
 package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
-import com.bmac.store.core.exception.ProductNotFoundException;
+import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
 import com.bmac.store.domain.Product;
-import com.bmac.store.ports.in.ReceiveOrderCommandMVP;
-import com.bmac.store.ports.in.ReceiveOrderUseCase;
-import com.bmac.store.ports.out.BatchCreatePort;
-import com.bmac.store.ports.out.BatchLoadPort;
-import com.bmac.store.ports.out.OrderReceivePort;
-import com.bmac.store.ports.out.ProductLoadPort;
-import lombok.AllArgsConstructor;
+import com.bmac.store.ports.in.order.ReceiveOrderCommand;
+import com.bmac.store.ports.in.order.ReceiveOrderUseCase;
+import com.bmac.store.ports.out.batch.BatchCreatePort;
+import com.bmac.store.ports.out.batch.BatchLoadPort;
+import com.bmac.store.ports.out.order.OrderReceivePort;
+import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
@@ -40,10 +40,10 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
     }
 
     @Override
-    public void receive(ReceiveOrderCommandMVP command) {
+    public void receive(ReceiveOrderCommand command) {
         Optional<Product> productOptional = productLoader.load(command.productID());
         if (productOptional.isEmpty()) {
-            throw new ProductNotFoundException(command.productID());
+            throw new StoreEntityNotFoundException(Product.class, UUID.class, command.productID().toString());
         }
 
         LocalDate batchDate = DailyCutoffTime.hasPassed() ? LocalDate.now().plusDays(1) : LocalDate.now();
