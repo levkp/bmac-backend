@@ -3,6 +3,7 @@ package com.bmac.store.domain;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.UUID;
 
@@ -19,8 +20,10 @@ public class Product {
     double price;
 
     public Product(String name, double price) {
-        uuid = UUID.randomUUID();
+        this.uuid = UUID.randomUUID();
         this.name = name;
         this.price = price;
     }
+
+
 }

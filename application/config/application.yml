@@ -15,3 +15,17 @@ spring:
     url: ${DATASOURCE_URL:jdbc:mysql://localhost:3308/fruit_db}
     username: ${DATASOURCE_USER:user}
     password: ${DATASOURCE_PASS:password}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: myuser
+    password: mypassword
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 6
+          max-interval: 5s
+          multiplier: 2
+

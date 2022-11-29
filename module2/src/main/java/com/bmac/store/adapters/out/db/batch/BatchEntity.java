@@ -17,6 +17,7 @@ public class BatchEntity {
 
     @Id
     @Type(type = "uuid-char")
+    @GeneratedValue(generator = "uuid")
     private UUID uuid;
 
     // Todo: unique = true

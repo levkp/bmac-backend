@@ -1,6 +1,10 @@
 package com.bmac.store.adapters.out.db.order;
 
+import com.bmac.store.adapters.out.db.batch.BatchEntity;
+import com.bmac.store.adapters.out.db.batch.BatchRepository;
+import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
+import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.order.OrderActivityCreatePort;
 import com.bmac.store.ports.out.order.OrderLoadPort;
 import com.bmac.store.ports.out.order.OrderReceivePort;
@@ -18,9 +22,12 @@ public class OrderRepositoryAdapter implements OrderReceivePort, OrderActivityCr
 
     private final OrderActivityRepository orderActivityRepository;
 
-    public OrderRepositoryAdapter(OrderRepository repository, OrderActivityRepository activityRepository) {
+    private final BatchRepository batchRepository;
+
+    public OrderRepositoryAdapter(OrderRepository repository, OrderActivityRepository activityRepository, BatchRepository batchRepository) {
         this.orderRepository = repository;
         this.orderActivityRepository = activityRepository;
+        this.batchRepository = batchRepository;
     }
 
     @Override
@@ -46,8 +53,22 @@ public class OrderRepositoryAdapter implements OrderReceivePort, OrderActivityCr
 
     @Override
     public List<OrderEntity> loadAllByBatchUuid(UUID uuid) {
-         List<OrderEntity> list = orderRepository.findAllByBatchUuid(uuid);
-         return list;
-         //         return new ArrayList<>();
+        Optional<BatchEntity> optional = batchRepository.findByUuid(uuid);
+        if (optional.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        BatchEntity batchJpaEntity = optional.get();
+        Batch batch = new Batch(batchJpaEntity.getUuid(), batchJpaEntity.getDate());
+
+        List<Order> orders = new ArrayList<>();
+        List<OrderEntity> jpaEntities = orderRepository.findAllByBatchUuid(uuid);
+
+
+//        jpaEntities.stream().map(jpaEntity -> {
+//            new Order(batch, );
+//        });
+
+        return new ArrayList<>();
     }
 }

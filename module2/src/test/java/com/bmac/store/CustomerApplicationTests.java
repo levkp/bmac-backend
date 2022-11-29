@@ -15,6 +15,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+
+// Todo move tests to separate class + add description
 @SpringBootTest
 class CustomerApplicationTests {
 

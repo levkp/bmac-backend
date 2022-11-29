@@ -46,6 +46,16 @@ public class BatchRepositoryAdapter
     }
 
     @Override
+    public Optional<Batch> loadByUuid(UUID uuid) {
+        Optional<BatchEntity> optional = repository.findByUuid(uuid);
+        if (optional.isPresent()) {
+            BatchEntity jpaEntity = optional.get();
+            return Optional.of(new Batch(jpaEntity.getUuid(), jpaEntity.getDate()));
+        }
+        return Optional.empty();
+    }
+
+    @Override
     public void createBatchActivity(UUID batchUUID, BatchActivityEntity.BatchAction action) {
         BatchActivityEntity activity = new BatchActivityEntity();
         activity.setBatch(batchUUID);

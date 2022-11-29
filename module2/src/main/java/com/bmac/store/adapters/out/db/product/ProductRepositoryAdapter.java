@@ -18,8 +18,8 @@ public class ProductRepositoryAdapter implements ProductCreatePort, ProductLoadP
     }
 
     @Override
-    public void create(Product p) {
-        ProductEntity jpaEntity = new ProductEntity(p.getUuid(), p.getName(), p.getPrice());
+    public void create(Product product) {
+        ProductEntity jpaEntity = new ProductEntity(product.getUuid(), product.getName(), product.getPrice());
         repository.save(jpaEntity);
     }
 

@@ -5,6 +5,7 @@ import com.bmac.store.ports.in.product.CreateProductCommand;
 import com.bmac.store.ports.in.product.CreateProductUseCase;
 import com.bmac.store.ports.out.product.ProductCreatePort;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +19,9 @@ public class DefaultCreateProductUseCase implements CreateProductUseCase {
     }
 
     @Override
-    public void create(CreateProductCommand command) {
-        productCreator.create(new Product(command.name(), command.price()));
+    public Product create(CreateProductCommand command) {
+        Product product = new Product(command.name(), command.price());
+        productCreator.create(product);
+        return product;
     }
 }
