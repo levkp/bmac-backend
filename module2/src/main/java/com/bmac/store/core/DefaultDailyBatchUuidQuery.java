@@ -4,7 +4,7 @@ import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.ports.out.batch.BatchLoadPort;
 import com.bmac.store.ports.out.batch.DailyBatchUuidQuery;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,9 +12,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 public class DefaultDailyBatchUuidQuery implements DailyBatchUuidQuery {
     private final BatchLoadPort batchLoader;
+
+    @Autowired
+    public DefaultDailyBatchUuidQuery(BatchLoadPort batchLoader) {
+        this.batchLoader = batchLoader;
+    }
 
     @Override
     public UUID getDailyBatchUuid() {

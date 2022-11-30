@@ -23,10 +23,10 @@ import java.util.UUID;
 @Component
 @Profile("dev")
 public class DataSeeder implements CommandLineRunner {
-    Logger log = LoggerFactory.getLogger(getClass());
-    CreateProductUseCase productCreator;
-    ReceiveOrderUseCase orderReceiver;
-    BatchCreatePort batchCreator;
+    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final CreateProductUseCase productCreator;
+    private final ReceiveOrderUseCase orderReceiver;
+    private final BatchCreatePort batchCreator;
 
     @Autowired
     public DataSeeder(CreateProductUseCase productUseCase, ReceiveOrderUseCase orderReceiver, BatchCreatePort batchCreator) {

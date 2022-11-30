@@ -1,8 +1,5 @@
 package com.bmac.store.adapters.out.db.product;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
@@ -13,8 +10,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-@AllArgsConstructor
-@Getter
 public class ProductEntity {
     @Id
     @Type(type = "uuid-char")
@@ -28,5 +23,23 @@ public class ProductEntity {
 
     protected ProductEntity() {
 
+    }
+
+    public ProductEntity(UUID uuid, String name, double price) {
+        this.uuid = uuid;
+        this.name = name;
+        this.price = price;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

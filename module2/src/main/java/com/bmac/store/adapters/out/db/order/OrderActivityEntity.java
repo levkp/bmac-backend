@@ -1,6 +1,5 @@
 package com.bmac.store.adapters.out.db.order;
 
-import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -29,13 +28,27 @@ public class OrderActivityEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Setter
     private OrderAction action;
 
     @Column(name = "order_id")
-    @Setter
     @Type(type = "uuid-char")
     private UUID order;
 
     private LocalDateTime timestamp;
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setAction(OrderAction action) {
+        this.action = action;
+    }
+
+    public void setOrder(UUID order) {
+        this.order = order;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

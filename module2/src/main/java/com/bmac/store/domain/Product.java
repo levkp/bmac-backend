@@ -1,23 +1,32 @@
 package com.bmac.store.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-
+import java.util.Objects;
 import java.util.UUID;
 
-@EqualsAndHashCode
-@AllArgsConstructor
 public class Product {
-    @Getter
     private final UUID uuid;
 
-    @Getter
     private final String name;
 
-    @Getter
     double price;
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Product(UUID uuid, String name, double price) {
+        this.uuid = uuid;
+        this.name = name;
+        this.price = price;
+    }
 
     public Product(String name, double price) {
         this.uuid = UUID.randomUUID();
@@ -25,5 +34,16 @@ public class Product {
         this.price = price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Double.compare(product.price, price) == 0 && Objects.equals(uuid, product.uuid) && Objects.equals(name, product.name);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, name, price);
+    }
 }

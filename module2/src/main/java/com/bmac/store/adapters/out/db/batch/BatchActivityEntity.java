@@ -1,6 +1,5 @@
 package com.bmac.store.adapters.out.db.batch;
 
-import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -23,12 +22,10 @@ public class BatchActivityEntity {
 
     @Type(type = "uuid-char")
     @Column(nullable = false)
-    @Setter
     private UUID batch;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @Setter
     private BatchAction activity;
 
     @Column(nullable = false)
@@ -36,5 +33,21 @@ public class BatchActivityEntity {
 
     public BatchActivityEntity() {
         this.timestamp = LocalDateTime.now();
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setBatch(UUID batch) {
+        this.batch = batch;
+    }
+
+    public void setActivity(BatchAction activity) {
+        this.activity = activity;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

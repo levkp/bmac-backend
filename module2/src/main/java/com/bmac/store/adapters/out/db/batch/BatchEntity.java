@@ -3,16 +3,10 @@ package com.bmac.store.adapters.out.db.batch;
 import java.time.LocalDate;
 import java.util.UUID;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Getter
 @Table(schema = "store", name="batches")
-@NoArgsConstructor
-@AllArgsConstructor
 public class BatchEntity {
 
     @Id
@@ -23,4 +17,19 @@ public class BatchEntity {
     // Todo: unique = true
     @Column(unique = false, nullable = false)
     private LocalDate date;
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public BatchEntity(UUID uuid, LocalDate date) {
+        this.uuid = uuid;
+        this.date = date;
+    }
+
+    public BatchEntity() {}
 }
