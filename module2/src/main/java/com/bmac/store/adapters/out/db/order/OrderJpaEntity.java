@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "orders", schema = "store")
-public class OrderEntity {
+public class OrderJpaEntity {
 
     @Id
     @Type(type = "uuid-char")
@@ -26,7 +26,7 @@ public class OrderEntity {
     private LocalDateTime timestamp;
 
 
-    public OrderEntity() {
+    public OrderJpaEntity() {
 
     }
 

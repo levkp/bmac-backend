@@ -3,13 +3,12 @@ package com.bmac.store.adapters.out.db.batch;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(schema = "store", name = "batch_activities")
-public class BatchActivityEntity {
+public class BatchActivityJpaEntity {
     public enum BatchAction {
         CREATE,
         FORWARD
@@ -31,7 +30,7 @@ public class BatchActivityEntity {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    public BatchActivityEntity() {
+    public BatchActivityJpaEntity() {
         this.timestamp = LocalDateTime.now();
     }
 

@@ -1,6 +1,6 @@
 package com.bmac.store.core;
 
-import com.bmac.store.adapters.out.db.batch.BatchActivityEntity;
+import com.bmac.store.adapters.out.db.batch.BatchActivityJpaEntity;
 import com.bmac.store.ports.in.batch.BatchForwardCommand;
 import com.bmac.store.ports.in.batch.BatchForwardUseCase;
 import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
@@ -29,8 +29,9 @@ public class DefaultBatchForwardUseCase implements BatchForwardUseCase {
 
     @Override
     public void forward(BatchForwardCommand command) {
-        batchCreator.createBatchActivity(command.batchUuid(), BatchActivityEntity.BatchAction.FORWARD);
         orderLoader.loadAllByBatchUuid(command.batchUuid());
+
         batchForwarder.forward(command.batchUuid());
+        batchCreator.createBatchActivity(command.batchUuid(), BatchActivityJpaEntity.BatchAction.FORWARD);
     }
 }

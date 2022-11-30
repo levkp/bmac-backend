@@ -24,7 +24,7 @@ public class OrderRepositoryAdapterTests {
         UUID batchUuid = batchUuidQuery.getDailyBatchUuid();
 
         // Act
-        List<OrderEntity> orders = repository.loadAllByBatchUuid(batchUuid);
+        List<OrderJpaEntity> orders = repository.loadAllByBatchUuid(batchUuid);
 
         // Assert
         assertTrue(orders.size() > 0);

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-public class ProductEntity {
+public class ProductJpaEntity {
     @Id
     @Type(type = "uuid-char")
     private UUID uuid;
@@ -21,11 +21,11 @@ public class ProductEntity {
     @Column(nullable = false)
     private double price;
 
-    protected ProductEntity() {
+    protected ProductJpaEntity() {
 
     }
 
-    public ProductEntity(UUID uuid, String name, double price) {
+    public ProductJpaEntity(UUID uuid, String name, double price) {
         this.uuid = uuid;
         this.name = name;
         this.price = price;

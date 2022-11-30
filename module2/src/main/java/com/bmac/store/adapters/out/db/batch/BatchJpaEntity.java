@@ -7,7 +7,7 @@ import org.hibernate.annotations.Type;
 
 @Entity
 @Table(schema = "store", name="batches")
-public class BatchEntity {
+public class BatchJpaEntity {
 
     @Id
     @Type(type = "uuid-char")
@@ -26,10 +26,10 @@ public class BatchEntity {
         return date;
     }
 
-    public BatchEntity(UUID uuid, LocalDate date) {
+    public BatchJpaEntity(UUID uuid, LocalDate date) {
         this.uuid = uuid;
         this.date = date;
     }
 
-    public BatchEntity() {}
+    public BatchJpaEntity() {}
 }

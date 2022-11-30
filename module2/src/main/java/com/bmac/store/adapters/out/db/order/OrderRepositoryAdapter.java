@@ -1,10 +1,9 @@
 package com.bmac.store.adapters.out.db.order;
 
-import com.bmac.store.adapters.out.db.batch.BatchEntity;
+import com.bmac.store.adapters.out.db.batch.BatchJpaEntity;
 import com.bmac.store.adapters.out.db.batch.BatchRepository;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
-import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.order.OrderActivityCreatePort;
 import com.bmac.store.ports.out.order.OrderLoadPort;
 import com.bmac.store.ports.out.order.OrderReceivePort;
@@ -32,7 +31,7 @@ public class OrderRepositoryAdapter implements OrderReceivePort, OrderActivityCr
 
     @Override
     public void receive(Order order) {
-        OrderEntity jpaEntity = new OrderEntity();
+        OrderJpaEntity jpaEntity = new OrderJpaEntity();
         jpaEntity.setUuid(order.getUuid());
         jpaEntity.setTimestamp(order.getTimestamp());
         jpaEntity.setBatchUuid(order.getBatch().getUuid());
@@ -40,29 +39,29 @@ public class OrderRepositoryAdapter implements OrderReceivePort, OrderActivityCr
         jpaEntity.setAmount(order.getAmount());
 
         orderRepository.save(jpaEntity);
-        createActivity(order.getUuid(), OrderActivityEntity.OrderAction.CREATE);
+        createActivity(order.getUuid(), OrderActivityJpaEntity.OrderAction.CREATE);
     }
 
     @Override
-    public void createActivity(UUID orderUuid, OrderActivityEntity.OrderAction action) {
-        OrderActivityEntity activity = new OrderActivityEntity();
+    public void createActivity(UUID orderUuid, OrderActivityJpaEntity.OrderAction action) {
+        OrderActivityJpaEntity activity = new OrderActivityJpaEntity();
         activity.setOrder(orderUuid);
         activity.setAction(action);
         orderActivityRepository.save(activity);
     }
 
     @Override
-    public List<OrderEntity> loadAllByBatchUuid(UUID uuid) {
-        Optional<BatchEntity> optional = batchRepository.findByUuid(uuid);
+    public List<OrderJpaEntity> loadAllByBatchUuid(UUID uuid) {
+        Optional<BatchJpaEntity> optional = batchRepository.findByUuid(uuid);
         if (optional.isEmpty()) {
             return new ArrayList<>();
         }
 
-        BatchEntity batchJpaEntity = optional.get();
+        BatchJpaEntity batchJpaEntity = optional.get();
         Batch batch = new Batch(batchJpaEntity.getUuid(), batchJpaEntity.getDate());
 
         List<Order> orders = new ArrayList<>();
-        List<OrderEntity> jpaEntities = orderRepository.findAllByBatchUuid(uuid);
+        List<OrderJpaEntity> jpaEntities = orderRepository.findAllByBatchUuid(uuid);
 
 
 //        jpaEntities.stream().map(jpaEntity -> {

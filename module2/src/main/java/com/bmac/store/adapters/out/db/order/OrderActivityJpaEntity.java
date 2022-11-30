@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "order_activities", schema = "store")
-public class OrderActivityEntity {
+public class OrderActivityJpaEntity {
 
     public enum OrderAction {
         CREATE,
@@ -16,7 +16,7 @@ public class OrderActivityEntity {
         FORWARD
     }
 
-    public OrderActivityEntity() {
+    public OrderActivityJpaEntity() {
         timestamp = LocalDateTime.now();
     }
 

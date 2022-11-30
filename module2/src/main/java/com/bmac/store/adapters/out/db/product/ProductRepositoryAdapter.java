@@ -19,15 +19,15 @@ public class ProductRepositoryAdapter implements ProductCreatePort, ProductLoadP
 
     @Override
     public void create(Product product) {
-        ProductEntity jpaEntity = new ProductEntity(product.getUuid(), product.getName(), product.getPrice());
+        ProductJpaEntity jpaEntity = new ProductJpaEntity(product.getUuid(), product.getName(), product.getPrice());
         repository.save(jpaEntity);
     }
 
     @Override
     public Optional<Product> load(UUID uuid) {
-        Optional<ProductEntity> optional = repository.findById(uuid);
+        Optional<ProductJpaEntity> optional = repository.findById(uuid);
         if (optional.isPresent()) {
-            ProductEntity jpaEntity = optional.get();
+            ProductJpaEntity jpaEntity = optional.get();
             return Optional.of(new Product(jpaEntity.getUuid(), jpaEntity.getName(), jpaEntity.getPrice()));
         }
         return Optional.empty();
