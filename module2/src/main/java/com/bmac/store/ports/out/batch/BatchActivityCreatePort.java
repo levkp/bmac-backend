@@ -1,9 +1,10 @@
 package com.bmac.store.ports.out.batch;
 
 import com.bmac.store.adapters.out.db.batch.BatchActivityJpaEntity;
+import com.bmac.store.domain.BatchActivity;
 
 import java.util.UUID;
 
 public interface BatchActivityCreatePort {
-    void createBatchActivity(UUID batchUUID, BatchActivityJpaEntity.BatchAction activity);
+    void create(UUID batchId, BatchActivity activity);
 }

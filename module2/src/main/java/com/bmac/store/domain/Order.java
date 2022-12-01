@@ -1,30 +1,23 @@
 package com.bmac.store.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Order {
+    private final UUID uuid;
     private final Batch batch;
     private final LocalDateTime timestamp;
-    private final Product product;
-    private final UUID uuid;
-    private final double amount;
 
-    public Order(Batch batch, LocalDateTime timestamp, Product product, UUID uuid, double amount) {
-        this.batch = batch;
-        this.timestamp = timestamp;
-        this.product = product;
-        this.uuid = uuid;
-        this.amount = amount;
-    }
+    private final Map<Product, Integer> product = new HashMap<>();
 
-    public Order(Batch batch, Product product, double amount) {
+    public Order(Batch batch) {
         this.batch = batch;
         this.timestamp = LocalDateTime.now();
-        this.product = product;
         this.uuid = UUID.randomUUID();
-        this.amount = amount;
     }
+
 
     public Batch getBatch() {
         return batch;
@@ -34,15 +27,8 @@ public class Order {
         return timestamp;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
     public UUID getUuid() {
         return uuid;
     }
 
-    public double getAmount() {
-        return amount;
-    }
 }
