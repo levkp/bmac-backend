@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Order {
-    private final UUID uuid;
+    private final UUID id;
     private final Batch batch;
     private final LocalDateTime timestamp;
 
@@ -15,7 +15,7 @@ public class Order {
     public Order(Batch batch) {
         this.batch = batch;
         this.timestamp = LocalDateTime.now();
-        this.uuid = UUID.randomUUID();
+        this.id = UUID.randomUUID();
     }
 
 
@@ -27,8 +27,8 @@ public class Order {
         return timestamp;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
 }

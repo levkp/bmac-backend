@@ -6,7 +6,5 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface BatchCreatePort {
-//    Batch create(LocalDate date);
-
     void create(Batch batch);
 }

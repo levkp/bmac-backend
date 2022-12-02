@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface BatchLoadPort {
     Optional<Batch> loadByDateTime(LocalDate date);
-    Optional<Batch> loadByUuid(UUID uuid);
-
+//    Optional<Batch> loadById(UUID id);
 }

@@ -2,48 +2,44 @@ package com.bmac.store.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 public class Batch {
-    private final UUID uuid;
-    private final LocalDate date;
+    private UUID id;
+    private LocalDate date;
 
-    private final LocalDateTime createTime;
+    private LocalDateTime createTime;
 
     private LocalDateTime forwardTime;
-    private final BatchActivityWindow activityWindow;
+    private BatchActivityWindow activityWindow;
 
-    public Batch(UUID uuid, LocalDate date, LocalDateTime createTime, LocalDateTime forwardTime,
-                 BatchActivityWindow activities) {
-        this.uuid = uuid;
-        this.date = date;
-        this.createTime = createTime;
-        this.forwardTime = forwardTime;
-        this.activityWindow = activities;
-    }
+    public Batch() {}
 
-    public Batch(UUID uuid, LocalDate date, LocalDateTime createTime, BatchActivityWindow activityWindow) {
-        this.uuid = uuid;
+    public Batch(UUID id, LocalDate date, LocalDateTime createTime, BatchActivityWindow activityWindow) {
+        this.id = id;
         this.date = date;
         this.createTime = createTime;
         this.activityWindow = activityWindow;
     }
 
     public BatchActivity addOrder(Order order) {
-        BatchActivity activity = new BatchActivity(BatchActivity.Action.RECEIVE, order.getUuid(), LocalDateTime.now());
+        BatchActivity activity = new BatchActivity(BatchActivity.Action.RECEIVE, order.getId(), LocalDateTime.now());
         activityWindow.add(activity);
         return activity;
     }
     
     public BatchActivity cancelOrder(Order order) {
-        BatchActivity activity = new BatchActivity(BatchActivity.Action.CANCEL, order.getUuid(), LocalDateTime.now());
+        BatchActivity activity = new BatchActivity(BatchActivity.Action.CANCEL, order.getId(), LocalDateTime.now());
         activityWindow.add(activity);
         return activity;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public void addActivity(BatchActivity activity) {
+        activityWindow.add(activity);
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public LocalDate getDate() {
@@ -60,5 +56,25 @@ public class Batch {
 
     public BatchActivityWindow getActivityWindow() {
         return activityWindow;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setForwardTime(LocalDateTime forwardTime) {
+        this.forwardTime = forwardTime;
+    }
+
+    public void setActivityWindow(BatchActivityWindow activityWindow) {
+        this.activityWindow = activityWindow;
     }
 }

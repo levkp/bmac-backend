@@ -40,4 +40,5 @@ spring:
           max-attempts: 6
           max-interval: 5s
           multiplier: 2
-
+      direct:
+        auto-startup: false

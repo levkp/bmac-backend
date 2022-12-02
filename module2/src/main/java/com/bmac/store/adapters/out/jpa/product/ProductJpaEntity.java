@@ -1,4 +1,4 @@
-package com.bmac.store.adapters.out.db.product;
+package com.bmac.store.adapters.out.jpa.product;
 
 import org.hibernate.annotations.Type;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ProductJpaEntity {
     @Id
     @Type(type = "uuid-char")
-    private UUID uuid;
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
@@ -26,13 +26,13 @@ public class ProductJpaEntity {
     }
 
     public ProductJpaEntity(UUID uuid, String name, double price) {
-        this.uuid = uuid;
+        this.id = uuid;
         this.name = name;
         this.price = price;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
     public String getName() {

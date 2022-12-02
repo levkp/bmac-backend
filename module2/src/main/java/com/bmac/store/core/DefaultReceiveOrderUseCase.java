@@ -8,7 +8,6 @@ import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
 import com.bmac.store.ports.out.batch.BatchCreatePort;
 import com.bmac.store.ports.out.batch.BatchLoadPort;
 import com.bmac.store.ports.out.batch.BatchUpdatePort;
-import com.bmac.store.ports.out.order.OrderReceivePort;
 import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,29 +19,25 @@ import java.util.UUID;
 
 @Service
 public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
-    private OrderReceivePort orderReceiver;
 
-    private BatchLoadPort batchLoader;
+    private final BatchLoadPort batchLoader;
 
-    private BatchCreatePort batchCreator;
+    private final BatchCreatePort batchCreator;
 
-    private BatchActivityCreatePort batchActivityCreator;
+    private final BatchActivityCreatePort batchActivityCreator;
 
-    private BatchUpdatePort batchUpdater;
+    private final BatchUpdatePort batchUpdater;
 
-    private ProductLoadPort productLoader;
-
-
-//    @Autowired
-//    public DefaultReceiveOrderUseCase(OrderReceivePort orderReceiver,
-//                                      BatchLoadPort batchLoader,
-//                                      BatchCreatePort batchCreator,
-//                                      ProductLoadPort productLoader) {
-//        this.orderReceiver = orderReceiver;
-//        this.batchLoader = batchLoader;
-//        this.batchCreator = batchCreator;
-//        this.productLoader = productLoader;
-//    }
+    @Autowired
+    public DefaultReceiveOrderUseCase(BatchLoadPort batchLoader,
+                                      BatchCreatePort batchCreator,
+                                      BatchActivityCreatePort batchActivityCreator,
+                                      BatchUpdatePort batchUpdater) {
+        this.batchLoader = batchLoader;
+        this.batchCreator = batchCreator;
+        this.batchActivityCreator = batchActivityCreator;
+        this.batchUpdater = batchUpdater;
+    }
 
     @Override
     public void receive(ReceiveOrderCommand command) {
@@ -58,6 +53,6 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
         }
 
         BatchActivity activity = batch.addOrder(command.order());
-        batchActivityCreator.create(batch.getUuid(), activity);
+        batchActivityCreator.create(batch.getId(), activity);
     }
 }
