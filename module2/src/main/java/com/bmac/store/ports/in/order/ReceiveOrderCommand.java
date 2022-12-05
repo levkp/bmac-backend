@@ -1,7 +1,6 @@
 package com.bmac.store.ports.in.order;
 
-import com.bmac.store.domain.Order;
-
+import java.util.Map;
 import java.util.UUID;
 
-public record ReceiveOrderCommand(Order order) { }
+public record ReceiveOrderCommand(Map<UUID, Integer> orderLine) { }

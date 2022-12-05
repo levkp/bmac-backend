@@ -10,14 +10,14 @@ public class Order {
     private final Batch batch;
     private final LocalDateTime timestamp;
 
-    private final Map<Product, Integer> product = new HashMap<>();
+    private final Map<Product, Integer> orderLine;
 
-    public Order(Batch batch) {
+    public Order(UUID id, Batch batch, LocalDateTime timestamp, Map<Product, Integer> orderLine) {
+        this.id = id;
         this.batch = batch;
-        this.timestamp = LocalDateTime.now();
-        this.id = UUID.randomUUID();
+        this.timestamp = timestamp;
+        this.orderLine = orderLine;
     }
-
 
     public Batch getBatch() {
         return batch;
@@ -31,4 +31,7 @@ public class Order {
         return id;
     }
 
+    public void addProduct(Product product, int amount) {
+        orderLine.put(product, amount);
+    }
 }

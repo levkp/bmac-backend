@@ -1,8 +1,17 @@
-POST http://localhost:8081/store/api/orders/a91379b4-c7e1-4d29-98bb-5d7a4ca1a17d/10 HTTP/1.1
+POST http://localhost:8081/store/api/orders/ HTTP/1.1
 Content-Type: application/json
 
 {
-
+  "orderLine": [
+    {
+      "productId": "5c70a0c2-d49e-42b5-96a4-442620721677",
+      "amount": 20
+    },
+    {
+      "productId": "5fd8f743-213a-4be2-9967-4ad4cf4dd05e",
+      "amount": 5
+    }
+  ]
 }
 
 ###

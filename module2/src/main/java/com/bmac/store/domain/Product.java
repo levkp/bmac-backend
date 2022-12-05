@@ -4,14 +4,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Product {
-    private final UUID uuid;
+    private final UUID id;
 
     private final String name;
 
     double price;
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getId() {
+        return id;
     }
 
     public String getName() {
@@ -23,13 +23,7 @@ public class Product {
     }
 
     public Product(UUID uuid, String name, double price) {
-        this.uuid = uuid;
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name, double price) {
-        this.uuid = UUID.randomUUID();
+        this.id = uuid;
         this.name = name;
         this.price = price;
     }
@@ -39,11 +33,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Double.compare(product.price, price) == 0 && Objects.equals(uuid, product.uuid) && Objects.equals(name, product.name);
+        return Double.compare(product.price, price) == 0 && Objects.equals(id, product.id) && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, name, price);
+        return Objects.hash(id, name, price);
     }
 }

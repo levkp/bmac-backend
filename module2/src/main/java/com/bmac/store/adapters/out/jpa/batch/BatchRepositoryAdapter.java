@@ -43,15 +43,7 @@ public class BatchRepositoryAdapter implements BatchCreatePort, BatchLoadPort, B
             batch.setForwardTime(jpaBatch.getForwardTime());
         }
 
-
-
-        activityLoader.loadByBatchId(batch.getId()).forEach();
-
-        List<BatchActivityJpaEntity> jpaActivities = activityRepository.findByBatchId(batch.getId());
-        for(BatchActivityJpaEntity jpaActivity : jpaActivities) {
-            batch.addActivity(new BatchActivity(jpaActivity.getAction(), jpaActivity.getOrderId(), jpaActivity.getTimestamp()));
-        }
-
+        activityLoader.loadByBatchId(batch.getId()).forEach(batch::addActivity);
         return Optional.of(batch);
     }
 

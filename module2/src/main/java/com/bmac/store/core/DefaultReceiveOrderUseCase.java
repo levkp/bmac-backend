@@ -1,6 +1,7 @@
 package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
+import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.*;
 import com.bmac.store.ports.in.order.ReceiveOrderCommand;
 import com.bmac.store.ports.in.order.ReceiveOrderUseCase;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,20 +30,24 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
     private final BatchActivityCreatePort batchActivityCreator;
 
     private final BatchUpdatePort batchUpdater;
+    private final ProductLoadPort productLoader;
 
     @Autowired
     public DefaultReceiveOrderUseCase(BatchLoadPort batchLoader,
                                       BatchCreatePort batchCreator,
                                       BatchActivityCreatePort batchActivityCreator,
-                                      BatchUpdatePort batchUpdater) {
+                                      BatchUpdatePort batchUpdater,
+                                      ProductLoadPort productLoader) {
         this.batchLoader = batchLoader;
         this.batchCreator = batchCreator;
         this.batchActivityCreator = batchActivityCreator;
         this.batchUpdater = batchUpdater;
+        this.productLoader = productLoader;
     }
 
     @Override
     public void receive(ReceiveOrderCommand command) {
+        Map<Product, Integer> orderLine = loadProducts(command.orderLine());
         LocalDate date = DailyCutoffTime.hasPassed() ? LocalDate.now().plusDays(1) : LocalDate.now();
         Optional<Batch> optional = batchLoader.loadByDateTime(date);
         Batch batch;
@@ -52,7 +59,21 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
             batch = optional.get();
         }
 
-        BatchActivity activity = batch.addOrder(command.order());
+        BatchActivity activity = batch.addOrder(new Order(UUID.randomUUID(), batch, LocalDateTime.now(), orderLine));
         batchActivityCreator.create(batch.getId(), activity);
+    }
+
+    private Map<Product, Integer> loadProducts(Map<UUID, Integer> orderLine) {
+        Map<Product, Integer> loadedOrderLine = new HashMap<>();
+
+        for(Map.Entry<UUID, Integer> item : orderLine.entrySet()) {
+            Optional<Product> optional = productLoader.load(item.getKey());
+            if (optional.isEmpty()) {
+                throw new StoreEntityNotFoundException(Product.class, UUID.class, item.getKey().toString());
+            }
+            loadedOrderLine.put(optional.get(), item.getValue());
+        }
+
+        return loadedOrderLine;
     }
 }
