@@ -1,6 +1,7 @@
 package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
+import com.bmac.common.domain.Product;
 import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.*;
 import com.bmac.store.ports.in.order.ReceiveOrderCommand;
@@ -8,7 +9,7 @@ import com.bmac.store.ports.in.order.ReceiveOrderUseCase;
 import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
 import com.bmac.store.ports.out.batch.BatchCreatePort;
 import com.bmac.store.ports.out.batch.BatchLoadPort;
-import com.bmac.store.ports.out.batch.BatchUpdatePort;
+import com.bmac.store.ports.out.order.OrderCreatePort;
 import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,19 +30,19 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
     private final BatchActivityCreatePort batchActivityCreator;
 
-    private final BatchUpdatePort batchUpdater;
+    private final OrderCreatePort orderCreator;
     private final ProductLoadPort productLoader;
 
     @Autowired
     public DefaultReceiveOrderUseCase(BatchLoadPort batchLoader,
                                       BatchCreatePort batchCreator,
                                       BatchActivityCreatePort batchActivityCreator,
-                                      BatchUpdatePort batchUpdater,
+                                      OrderCreatePort orderCreator,
                                       ProductLoadPort productLoader) {
         this.batchLoader = batchLoader;
         this.batchCreator = batchCreator;
         this.batchActivityCreator = batchActivityCreator;
-        this.batchUpdater = batchUpdater;
+        this.orderCreator = orderCreator;
         this.productLoader = productLoader;
     }
 
@@ -59,7 +60,9 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
             batch = optional.get();
         }
 
-        BatchActivity activity = batch.addOrder(new Order(UUID.randomUUID(), batch, LocalDateTime.now(), orderLine));
+        Order order = new Order(UUID.randomUUID(), batch, LocalDateTime.now(), orderLine);
+        orderCreator.create(order);
+        BatchActivity activity = batch.addOrder(order);
         batchActivityCreator.create(batch.getId(), activity);
     }
 
@@ -67,11 +70,10 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
         Map<Product, Integer> loadedOrderLine = new HashMap<>();
 
         for(Map.Entry<UUID, Integer> item : orderLine.entrySet()) {
-            Optional<Product> optional = productLoader.load(item.getKey());
-            if (optional.isEmpty()) {
-                throw new StoreEntityNotFoundException(Product.class, UUID.class, item.getKey().toString());
-            }
-            loadedOrderLine.put(optional.get(), item.getValue());
+            Product product = productLoader.load(item.getKey()).orElseThrow(
+                    () -> new StoreEntityNotFoundException(Product.class, UUID.class, item.getKey().toString())
+            );
+            loadedOrderLine.put(product, item.getValue());
         }
 
         return loadedOrderLine;

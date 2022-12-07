@@ -1,5 +1,6 @@
 package com.bmac.store.adapters.in.api.dto;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @SuppressWarnings("unused")

@@ -35,6 +35,12 @@ public class OrderJpaEntity {
 
     }
 
+    public OrderJpaEntity(UUID id, UUID batchId, LocalDateTime timestamp, Map<String, Integer> orderLine) {
+        this.id = id;
+        this.batchId = batchId;
+        this.timestamp = timestamp;
+        this.orderLine = orderLine;
+    }
 
     public UUID getId() {
         return id;
@@ -42,5 +48,13 @@ public class OrderJpaEntity {
 
     public void setId(UUID uuid) {
         this.id = uuid;
+    }
+
+    public Map<String, Integer> getOrderLine() {
+        return orderLine;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 }

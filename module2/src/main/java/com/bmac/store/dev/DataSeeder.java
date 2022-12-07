@@ -1,6 +1,6 @@
-package com.bmac.store.config;
+package com.bmac.store.dev;
 
-import com.bmac.store.domain.Product;
+import com.bmac.common.domain.Product;
 import com.bmac.store.ports.in.order.ReceiveOrderUseCase;
 import com.bmac.store.ports.in.product.CreateProductCommand;
 import com.bmac.store.ports.in.product.CreateProductUseCase;
@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.UUID;
 
 @Component
-@Profile("seed")
+@Profile({"dev & seed"})
 public class DataSeeder implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -46,9 +46,9 @@ public class DataSeeder implements CommandLineRunner {
             productIds.add(product.getId());
         }
 
-        for(UUID id : productIds) {
-
-        }
+//        for(UUID id : productIds) {
+//
+//        }
     }
 
 //

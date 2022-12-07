@@ -6,10 +6,10 @@ server:
     whitelabel:
       enabled: true
 
-logging:
-  file:
-    name: store.log
-    path: module2/log/
+#logging:
+#  file:
+#    name: store.log
+#    path: module2/log/
 
 spring:
   profiles:
@@ -17,7 +17,6 @@ spring:
   config:
     additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
-    show-sql: true
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false

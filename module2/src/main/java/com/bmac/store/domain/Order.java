@@ -1,13 +1,14 @@
 package com.bmac.store.domain;
 
+import com.bmac.common.domain.Product;
+
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 public class Order {
     private final UUID id;
-    private final Batch batch;
+    private Batch batch;
     private final LocalDateTime timestamp;
 
     private final Map<Product, Integer> orderLine;
@@ -19,8 +20,18 @@ public class Order {
         this.orderLine = orderLine;
     }
 
+    public Order(UUID id, LocalDateTime timestamp, Map<Product, Integer> orderLine) {
+        this.id = id;
+        this.timestamp = timestamp;
+        this.orderLine = orderLine;
+    }
+
     public Batch getBatch() {
         return batch;
+    }
+
+    public void setBatch(Batch batch) {
+        this.batch = batch;
     }
 
     public LocalDateTime getTimestamp() {
@@ -31,7 +42,7 @@ public class Order {
         return id;
     }
 
-    public void addProduct(Product product, int amount) {
-        orderLine.put(product, amount);
+    public Map<Product, Integer> getOrderLine() {
+        return orderLine;
     }
 }

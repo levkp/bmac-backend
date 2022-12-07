@@ -1,6 +1,6 @@
 package com.bmac.store.core;
 
-import com.bmac.store.domain.Product;
+import com.bmac.common.domain.Product;
 import com.bmac.store.ports.in.product.CreateProductCommand;
 import com.bmac.store.ports.in.product.CreateProductUseCase;
 import com.bmac.store.ports.out.product.ProductCreatePort;

@@ -1,14 +1,12 @@
-package com.bmac.store.domain;
+package com.bmac.common.domain;
 
 import java.util.Objects;
 import java.util.UUID;
 
 public class Product {
     private final UUID id;
-
     private final String name;
-
-    double price;
+    private final double price;
 
     public UUID getId() {
         return id;

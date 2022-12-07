@@ -5,11 +5,10 @@ Content-Type: application/json
   "orderLine": [
     {
       "productId": "5c70a0c2-d49e-42b5-96a4-442620721677",
-      "amount": 20
+      "amount": 43
     },
     {
-      "productId": "5fd8f743-213a-4be2-9967-4ad4cf4dd05e",
-      "amount": 5
+
     }
   ]
 }
