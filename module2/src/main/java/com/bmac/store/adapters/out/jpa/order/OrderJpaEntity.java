@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Entity
-@Table(name = "orders", schema = "store")
+@Table(name = "store.orders")
 public class OrderJpaEntity {
 
     @Id
@@ -26,7 +26,7 @@ public class OrderJpaEntity {
 
 //    (targetClass = Integer.class)
     @ElementCollection
-    @CollectionTable(name = "order_lines", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"))
+    @CollectionTable(name = "store.orderlines", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"))
     @Column(nullable = false, name = "amount")
     @MapKeyColumn(name = "product_id")
     private Map<String, Integer> orderLine = new HashMap<>();

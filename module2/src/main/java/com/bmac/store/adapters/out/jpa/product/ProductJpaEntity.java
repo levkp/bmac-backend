@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
+@Table(name = "shared.products")
 public class ProductJpaEntity {
     @Id
     @Type(type = "uuid-char")

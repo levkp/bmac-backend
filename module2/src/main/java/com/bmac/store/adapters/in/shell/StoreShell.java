@@ -1,4 +1,4 @@
-package com.bmac.store.dev;
+package com.bmac.store.adapters.in.shell;
 
 import com.bmac.store.ports.in.batch.ForwardBatchCommand;
 import com.bmac.store.ports.in.batch.ForwardBatchUseCase;
@@ -9,14 +9,14 @@ import org.springframework.shell.standard.ShellMethod;
 
 import java.time.LocalDate;
 
-@Profile("dev")
+@Profile("shell")
 @ShellComponent
-public class SpringShell {
+public class StoreShell {
 
     ForwardBatchUseCase batchForward;
 
     @Autowired
-    public SpringShell(ForwardBatchUseCase batchForward) {
+    public StoreShell(ForwardBatchUseCase batchForward) {
         this.batchForward = batchForward;
     }
 

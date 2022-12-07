@@ -8,7 +8,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(schema = "store", name = "batches")
+@Table(name = "store.batches")
 public class BatchJpaEntity {
 
     @Id
