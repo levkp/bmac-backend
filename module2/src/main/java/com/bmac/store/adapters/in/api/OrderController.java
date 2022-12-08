@@ -63,6 +63,6 @@ public class OrderController {
 
     @ExceptionHandler
     public ResponseEntity<String> handleCutoffTimePassedException(CutoffTimePassedException exception) {
-        return ResponseEntity.status(HttpStatus.LOCKED).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class OrderItemDto {
-    @NotNull @NotEmpty
+    @NotNull
     private UUID productId;
 
     @Min(1) @Max(500)

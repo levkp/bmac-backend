@@ -4,15 +4,12 @@ Content-Type: application/json
 {
   "orderLine": [
     {
-      "productId": "5c70a0c2-d49e-42b5-96a4-442620721677",
+      "productId": "11cedf06-6984-41ae-ba33-24eaa6b1fb2b",
       "amount": 43
-    },
-    {
-
     }
   ]
 }
 
 ###
 
-DELETE http://localhost:8081/store/api/orders/ HTTP/1.1
+DELETE http://localhost:8081/store/api/orders/1de18adb-362d-4334-b076-8531c7d097ce HTTP/1.1

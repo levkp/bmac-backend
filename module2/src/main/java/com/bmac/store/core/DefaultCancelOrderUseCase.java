@@ -27,6 +27,7 @@ public class DefaultCancelOrderUseCase implements CancelOrderUseCase {
 
     @Override
     public void cancel(CancelOrderCommand command) {
+        // Todo: check if order is already cancelled or not
         Order order = orderLoader.loadById(command.id()).orElseThrow(
                 () -> new StoreEntityNotFoundException(Order.class, UUID.class, command.id().toString())
         );
