@@ -4,6 +4,7 @@ import com.bmac.common.exception.InvalidDtoException;
 import com.bmac.store.adapters.in.api.dto.OrderDto;
 import com.bmac.store.adapters.in.api.dto.OrderItemDto;
 import com.bmac.store.core.exception.CutoffTimePassedException;
+import com.bmac.store.core.exception.OrderAlreadyCancelledException;
 import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.ports.in.CancelOrderCommand;
 import com.bmac.store.ports.in.CancelOrderUseCase;
@@ -61,8 +62,8 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessages());
     }
 
-    @ExceptionHandler
-    public ResponseEntity<String> handleCutoffTimePassedException(CutoffTimePassedException exception) {
+    @ExceptionHandler({CutoffTimePassedException.class, OrderAlreadyCancelledException.class})
+    public ResponseEntity<String> handleForbiddenActionExceptions(RuntimeException exception) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 }

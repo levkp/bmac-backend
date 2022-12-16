@@ -2,7 +2,6 @@ package com.bmac.store.adapters.in.api.dto;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -11,7 +10,6 @@ import java.util.UUID;
 public class OrderItemDto {
     @NotNull
     private UUID productId;
-
     @Min(1) @Max(500)
     private int amount;
 

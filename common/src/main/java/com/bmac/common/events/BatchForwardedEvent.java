@@ -1,4 +1,8 @@
 package com.bmac.common.events;
 
-public record BatchForwardedEvent() {
+import java.time.LocalDate;
+import java.util.UUID;
+
+public record BatchForwardedEvent(UUID batchId, LocalDate batchDate) {
+
 }

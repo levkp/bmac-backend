@@ -68,5 +68,13 @@ After the cutoff time, the Factory receives the orders the Store collected durin
 | Position       |            |                          |                            |
 
 
-### Model
+### Domain model
 
+```mermaid
+classDiagram
+
+Stock -- Item
+Stock *-- Shelf
+Sector --* Shelf
+
+```

@@ -10,7 +10,7 @@ logging:
 
 spring:
   profiles:
-    active: dev
+    active: dev,shell
   shell:
     interactive:
       enabled: false

@@ -1,9 +1,8 @@
 package com.bmac.store.adapters.out.jpa.order;
 
-import com.bmac.store.adapters.out.jpa.batch.BatchJpaEntity;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
-import com.bmac.common.domain.Product;
+import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.BatchLoadPort;
 import com.bmac.store.ports.out.OrderCreatePort;
 import com.bmac.store.ports.out.OrderLoadPort;
@@ -88,5 +87,13 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
         }
 
         return Optional.of(new Order(orderJpaEntity.getId(), batchOptional.get(), orderJpaEntity.getTimestamp()));
+    }
+
+    @Override
+    public List<Order> loadAllByIds(List<UUID> ids) {
+
+        repository.findAllById(ids);
+
+        return null;
     }
 }

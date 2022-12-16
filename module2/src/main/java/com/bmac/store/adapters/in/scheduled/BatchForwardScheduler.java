@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.LocalDate;
 
 @Component
-public class BatchForwarder {
+public class BatchForwardScheduler {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final ForwardBatchUseCase forwardBatch;
 
     @Autowired
-    public BatchForwarder(ForwardBatchUseCase forwardBatch) {
+    public BatchForwardScheduler(ForwardBatchUseCase forwardBatch) {
         this.forwardBatch = forwardBatch;
     }
 

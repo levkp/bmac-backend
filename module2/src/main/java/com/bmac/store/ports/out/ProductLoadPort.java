@@ -1,6 +1,6 @@
 package com.bmac.store.ports.out;
 
-import com.bmac.common.domain.Product;
+import com.bmac.store.domain.Product;
 
 import java.util.Optional;
 import java.util.UUID;

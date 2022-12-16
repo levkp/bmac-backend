@@ -1,9 +1,0 @@
-Can I expose UUIDs to the frontend?
-
-Why use:
-#    username: ${DATASOURCE_USER:dev}
-#    password: ${DATASOURCE_PASS:password}
-#    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3308/fruit_db}
-
-
-

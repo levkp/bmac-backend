@@ -1,4 +1,4 @@
-package com.bmac.common.domain;
+package com.bmac.store.domain;
 
 import java.util.Objects;
 import java.util.UUID;

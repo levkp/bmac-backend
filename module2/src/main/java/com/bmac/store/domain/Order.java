@@ -1,7 +1,5 @@
 package com.bmac.store.domain;
 
-import com.bmac.common.domain.Product;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;

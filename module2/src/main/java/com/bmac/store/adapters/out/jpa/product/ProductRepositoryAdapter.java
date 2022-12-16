@@ -1,6 +1,6 @@
 package com.bmac.store.adapters.out.jpa.product;
 
-import com.bmac.common.domain.Product;
+import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.ProductCreatePort;
 import com.bmac.store.ports.out.ProductLoadPort;
 import org.springframework.stereotype.Repository;

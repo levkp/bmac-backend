@@ -1,7 +1,6 @@
 package com.bmac.store.adapters.out.jpa.batch;
 
 import com.bmac.store.domain.Batch;
-import com.bmac.store.domain.BatchActivityWindow;
 import com.bmac.store.ports.out.BatchActivityLoadPort;
 import com.bmac.store.ports.out.BatchCreatePort;
 import com.bmac.store.ports.out.BatchLoadPort;
@@ -31,7 +30,7 @@ public class BatchRepositoryAdapter implements BatchCreatePort, BatchLoadPort, B
     }
 
     @Override
-    public Optional<Batch> loadByDateTime(LocalDate date) {
+    public Optional<Batch> loadByDate(LocalDate date) {
         return handleQueryResult(repository.findByDate(date));
     }
 
@@ -59,7 +58,7 @@ public class BatchRepositoryAdapter implements BatchCreatePort, BatchLoadPort, B
         batch.setId(jpaEntity.getId());
         batch.setDate(jpaEntity.getDate());
         batch.setCreateTime(jpaEntity.getCreateTime());
-        batch.setActivityWindow(new BatchActivityWindow());
+        batch.setActivityWindow(new Batch.ActivityWindow());
 
         if (jpaEntity.getForwardTime() != null) {
             batch.setForwardTime(jpaEntity.getForwardTime());

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class DailyCutoffTime {
-    private static final LocalTime TIME = LocalTime.of(22, 0);
+    public static final LocalTime TIME = LocalTime.of(22, 0);
     public static final String CRON = "1 22 * * *";
 
     public static LocalDateTime ofToday() {

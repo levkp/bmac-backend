@@ -7,5 +7,6 @@ public record BatchActivity(BatchActivity.Action action, UUID orderId, LocalDate
     public enum Action {
         RECEIVE,
         CANCEL,
+        FORWARD
     }
 }

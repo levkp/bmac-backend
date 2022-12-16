@@ -7,7 +7,6 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class OrderDto {
-
     @NotNull @NotEmpty
     private List<@Valid OrderItemDto> orderLine;
 

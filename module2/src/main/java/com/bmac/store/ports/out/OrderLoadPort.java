@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface OrderLoadPort {
     List<Order> loadAllByBatchId(UUID batchId);
-
     Optional<Order> loadById(UUID id);
+
+    List<Order> loadAllByIds(List<UUID> ids);
 }

@@ -8,11 +8,15 @@ public class Sector {
     private final Temperature temperature;
     private final List<Shelf> shelves = new ArrayList<>();
 
-    public Sector(Temperature temperature, int numberOfShelves) {
+    public Sector(Temperature temperature) {
         this.temperature = temperature;
         this.id = Sector.makeId(this);
+    }
+
+    public Sector(Temperature temperature, int numberOfShelves) {
+        this(temperature);
         for(int i = 0; i < numberOfShelves; i++) {
-            shelves.add(new Shelf(id + (shelves.size() + 1)));
+            addShelf(new ArrayList<>());
         }
     }
 
@@ -26,6 +30,10 @@ public class Sector {
 
     public List<Shelf> getShelves() {
         return shelves;
+    }
+
+    public boolean addShelf(List<Stock> content) {
+        return shelves.add(new Shelf(id + '.' + shelves.size()));
     }
 
     private static char nextSectorChar = 'A';

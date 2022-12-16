@@ -1,7 +1,7 @@
 package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
-import com.bmac.common.domain.Product;
+import com.bmac.store.domain.Product;
 import com.bmac.store.core.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.*;
 import com.bmac.store.ports.in.ReceiveOrderCommand;
@@ -50,11 +50,11 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
     public UUID receive(ReceiveOrderCommand command) {
         Map<Product, Integer> orderLine = loadProducts(command.orderLine());
         LocalDate date = DailyCutoffTime.hasPassed() ? LocalDate.now().plusDays(1) : LocalDate.now();
-        Optional<Batch> optional = batchLoader.loadByDateTime(date);
+        Optional<Batch> optional = batchLoader.loadByDate(date);
         Batch batch;
 
         if (optional.isEmpty()) {
-            batch = new Batch(UUID.randomUUID(), date, LocalDateTime.now(), new BatchActivityWindow());
+            batch = new Batch(UUID.randomUUID(), date, LocalDateTime.now(), new Batch.ActivityWindow());
             batchCreator.create(batch);
         } else {
             batch = optional.get();

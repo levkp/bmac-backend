@@ -1,6 +1,6 @@
 package com.bmac.store.bootstrap;
 
-import com.bmac.common.domain.Product;
+import com.bmac.store.domain.Product;
 import com.bmac.store.ports.in.ReceiveOrderCommand;
 import com.bmac.store.ports.in.ReceiveOrderUseCase;
 import com.bmac.store.ports.in.CreateProductCommand;
