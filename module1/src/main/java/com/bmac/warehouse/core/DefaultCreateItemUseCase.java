@@ -1,5 +1,6 @@
 package com.bmac.warehouse.core;
 
+import com.bmac.warehouse.adapters.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.ports.in.CreateItemCommand;
 import com.bmac.warehouse.ports.in.CreateItemUseCase;
@@ -20,7 +21,7 @@ public class DefaultCreateItemUseCase implements CreateItemUseCase {
     }
 
     @Override
-    public Item create(CreateItemCommand command) {
+    public Item create(CreateItemCommand command) throws WarehouseEntityConstraintException {
         Item item = new Item(
                 UUID.randomUUID(),
                 command.name(),

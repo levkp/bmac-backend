@@ -1,4 +1,4 @@
-package com.bmac.store.core.exception;
+package com.bmac.store.exception;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

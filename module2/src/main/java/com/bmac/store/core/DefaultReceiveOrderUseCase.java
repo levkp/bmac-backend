@@ -2,7 +2,7 @@ package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
 import com.bmac.store.domain.Product;
-import com.bmac.store.core.exception.StoreEntityNotFoundException;
+import com.bmac.store.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.*;
 import com.bmac.store.ports.in.ReceiveOrderCommand;
 import com.bmac.store.ports.in.ReceiveOrderUseCase;

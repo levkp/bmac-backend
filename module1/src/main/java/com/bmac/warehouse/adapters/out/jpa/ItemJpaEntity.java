@@ -16,7 +16,7 @@ public class ItemJpaEntity {
     @Column(name = "id")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     private double minimum;
@@ -41,5 +41,29 @@ public class ItemJpaEntity {
 
     protected ItemJpaEntity() {
 
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getMinimum() {
+        return minimum;
+    }
+
+    public double getMaximum() {
+        return maximum;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    public Item.Unit getUnit() {
+        return unit;
     }
 }

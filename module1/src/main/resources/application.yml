@@ -1,23 +1,24 @@
 server:
-  port: ${PORT:8081}
+  port: ${PORT:8080}
   servlet:
     context-path: /warehouse
 
 spring:
   profiles:
-    active: dev
+    active: dev, seed
   shell:
     interactive:
       enabled: false
-  config:
-    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
+#  config:
+#    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
     hibernate:
       ddl-auto: none
+
   datasource:
-    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3308/fruit_db}
-    username: ${DATASOURCE_USER:dev}
-    password: ${DATASOURCE_PASS:password}
+    url: "jdbc:mysql://172.18.0.1:3308/fruit_db"
+    username: "dev"
+    password: "password"

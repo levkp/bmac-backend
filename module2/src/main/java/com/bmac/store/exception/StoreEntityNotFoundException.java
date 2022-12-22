@@ -1,4 +1,4 @@
-package com.bmac.store.core.exception;
+package com.bmac.store.exception;
 
 public class StoreEntityNotFoundException extends RuntimeException {
     public StoreEntityNotFoundException(Class entityClass, Class identifierClass, String value) {

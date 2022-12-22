@@ -1,7 +1,7 @@
 package com.bmac.store.adapters.in.scheduled;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
-import com.bmac.store.core.exception.StoreEntityNotFoundException;
+import com.bmac.store.exception.StoreEntityNotFoundException;
 import com.bmac.store.ports.in.ForwardBatchCommand;
 import com.bmac.store.ports.in.ForwardBatchUseCase;
 import org.slf4j.Logger;

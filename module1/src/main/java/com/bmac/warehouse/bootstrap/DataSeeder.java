@@ -1,10 +1,10 @@
 package com.bmac.warehouse.bootstrap;
 
+import com.bmac.warehouse.adapters.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.domain.Temperature;
 import com.bmac.warehouse.ports.in.CreateItemCommand;
 import com.bmac.warehouse.ports.in.CreateItemUseCase;
-import com.bmac.warehouse.ports.out.CreateItemPort;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,6 @@ import java.util.*;
 @Profile("seed")
 public class DataSeeder implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(getClass());
-
     private final CreateItemUseCase createItem;
 
     @Autowired
@@ -38,36 +37,33 @@ public class DataSeeder implements CommandLineRunner {
         List<Item> cooledItems = new ArrayList<>();
         List<Item> refrigeratedItem = new ArrayList<>();
 
-        for (int i = 0; i < 50; i++) {
-            dryItems.add(createItem.create(new CreateItemCommand(
-                    faker.food().ingredient(),
-                    random.nextDouble(5.0),
-                    random.nextDouble(50.0),
-                    Temperature.DRY,
-                    Item.Unit.values()[random.nextInt(Item.Unit.values().length)])
-            ));
-        }
+        Temperature temperature = Temperature.DRY;
+        List<Item> list = dryItems;
 
-        for (int i = 0; i < 40; i++) {
-            cooledItems.add(createItem.create(new CreateItemCommand(
-                    faker.food().ingredient(),
-                    random.nextDouble(3.0),
-                    random.nextDouble(40.0),
-                    Temperature.COOLED,
-                    Item.Unit.values()[random.nextInt(Item.Unit.values().length)])
-            ));
-        }
+        for (int i = 0; i < 150; i++) {
+            if (i == 50) {
+                temperature = Temperature.COOLED;
+                list = cooledItems;
+            } else if (i == 100) {
+                temperature = Temperature.REFRIGERATED;
+                list = refrigeratedItem;
+            }
 
-        for (int i = 0; i < 40; i++) {
-            refrigeratedItem.add(createItem.create(new CreateItemCommand(
-                    faker.food().ingredient(),
-                    random.nextDouble(3.0),
-                    random.nextDouble(40.0),
-                    Temperature.DRY,
-                    Item.Unit.values()[random.nextInt(Item.Unit.values().length)])
-            ));
+            try {
+                list.add(createItem.create(new CreateItemCommand(
+                        faker.food().ingredient(),
+                        random.nextInt(5) / 10.0,
+                        random.nextInt(5) / 10.0,
+                        temperature,
+                        Item.Unit.values()[random.nextInt(Item.Unit.values().length)])
+                ));
+            } catch (WarehouseEntityConstraintException exception) {
+                /* This exception will occur because there is a unique constraint on the name field of an Item, and it's
+                 * possible that the JavaFaker library will return the same values multiple times. There will be fewer
+                 * items created than declared in the loop header, but that's okay.
+                 */
+            }
         }
-
 
 
 //        Map<Temperature, List<Item>> items = Map.of(

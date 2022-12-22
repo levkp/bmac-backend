@@ -1,7 +1,8 @@
 package com.bmac.store.core;
 
-import com.bmac.store.core.exception.StoreEntityNotFoundException;
+import com.bmac.store.exception.StoreEntityNotFoundException;
 import com.bmac.store.domain.Batch;
+import com.bmac.store.domain.BatchActivity;
 import com.bmac.store.ports.in.ForwardBatchCommand;
 import com.bmac.store.ports.in.ForwardBatchUseCase;
 import com.bmac.store.ports.out.*;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
@@ -39,9 +42,17 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
                 () -> new StoreEntityNotFoundException(Batch.class, LocalDate.class, command.timestamp().toString())
         );
 
-        batchActivityLoader.loadActiveOrderIdsByBatchId(batch.getId());
+
+        List<UUID> orderIds = batchActivityLoader.loadActiveOrderIdsByBatchId(batch.getId());
+        List<BatchActivity> activities = batch.forward(orderIds);
+
+
+        orderLoader.loadAllByIds(null);
+
+        // Todo: call Batch.forward()
 
         batchUpdater.update(batch);
+
         try {
             batchForwarder.forward(batch, orderLoader.loadAllByBatchId(batch.getId()));
         } catch (JsonProcessingException exception) {

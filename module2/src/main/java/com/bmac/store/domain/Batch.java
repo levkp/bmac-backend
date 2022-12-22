@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class Batch {
     public static class ActivityWindow {
@@ -49,16 +48,15 @@ public class Batch {
         return activity;
     }
 
-    public List<BatchActivity> forward(List<Order> orders) {
+    public List<BatchActivity> forward(List<UUID> orderIds) {
         LocalDateTime forwardTime = LocalDateTime.now();
         setForwardTime(forwardTime);
 
-        List<BatchActivity> activities = orders.stream()
-                .map(order -> new BatchActivity(BatchActivity.Action.FORWARD, order.getId(), forwardTime))
+        List<BatchActivity> activities = orderIds.stream()
+                .map(id -> new BatchActivity(BatchActivity.Action.FORWARD, id, forwardTime))
                 .toList();
 
         activityWindow.addAll(activities);
-
         return activities;
     }
 
@@ -80,10 +78,6 @@ public class Batch {
 
     public LocalDateTime getForwardTime() {
         return forwardTime;
-    }
-
-    public Batch.ActivityWindow getActivityWindow() {
-        return activityWindow;
     }
 
     public void setId(UUID id) {
