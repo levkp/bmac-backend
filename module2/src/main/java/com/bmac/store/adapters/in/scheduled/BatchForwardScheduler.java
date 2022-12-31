@@ -1,7 +1,7 @@
 package com.bmac.store.adapters.in.scheduled;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
-import com.bmac.store.exception.StoreEntityNotFoundException;
+import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.ports.in.ForwardBatchCommand;
 import com.bmac.store.ports.in.ForwardBatchUseCase;
 import org.slf4j.Logger;
@@ -31,8 +31,8 @@ public class BatchForwardScheduler {
         log.info("Forwarded daily batch");
     }
 
-    @ExceptionHandler(StoreEntityNotFoundException.class)
-    public void handleStoreEntityNotFoundException(StoreEntityNotFoundException exception) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public void handleStoreEntityNotFoundException(EntityNotFoundException exception) {
         log.error(exception.getMessage()); // Todo
     }
 }

@@ -18,14 +18,16 @@ public class Item {
     private double maximum;
     private Temperature temperature;
     private Item.Unit unit;
+    private int expiryDays;
 
-    public Item(UUID id, String name, double minAmount, double maxAmount, Temperature temperature, Unit unit) {
+    public Item(UUID id, String name, double minAmount, double maxAmount, Temperature temperature, Unit unit, int expiryDays) {
         this.id = id;
         this.name = name;
         this.minimum = minAmount;
         this.maximum = maxAmount;
         this.temperature = temperature;
         this.unit = unit;
+        this.expiryDays = expiryDays;
     }
 
     public UUID getId() {

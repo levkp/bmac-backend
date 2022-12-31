@@ -2,8 +2,8 @@
 //
 //import com.bmac.common.cutoff.DailyCutoffTime;
 //import com.bmac.store.domain.Batch;
-//import com.bmac.store.ports.out.BatchCreatePort;
-//import com.bmac.store.ports.out.BatchLoadPort;
+//import com.bmac.store.ports.out.batch.BatchCreatePort;
+//import com.bmac.store.ports.out.batch.BatchLoadPort;
 //
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.bmac.store.adapters.out.jpa.batch;
 
 import com.bmac.store.domain.BatchActivity;
-import com.bmac.store.ports.out.BatchActivityCreatePort;
-import com.bmac.store.ports.out.BatchActivityLoadPort;
+import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
+import com.bmac.store.ports.out.batch.BatchActivityLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

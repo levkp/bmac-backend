@@ -8,16 +8,9 @@ public class Sector {
     private final Temperature temperature;
     private final List<Shelf> shelves = new ArrayList<>();
 
-    public Sector(Temperature temperature) {
+    public Sector(String id, Temperature temperature) {
+        this.id = id;
         this.temperature = temperature;
-        this.id = Sector.makeId(this);
-    }
-
-    public Sector(Temperature temperature, int numberOfShelves) {
-        this(temperature);
-        for(int i = 0; i < numberOfShelves; i++) {
-            addShelf(new ArrayList<>());
-        }
     }
 
     public String getId() {
@@ -32,12 +25,7 @@ public class Sector {
         return shelves;
     }
 
-    public boolean addShelf(List<Stock> content) {
-        return shelves.add(new Shelf(id + '.' + shelves.size()));
-    }
-
-    private static char nextSectorChar = 'A';
-    private static String makeId(Sector sector) {
-        return sector.getTemperature().name().substring(0, 3) + '.' + nextSectorChar++;
+    public boolean addShelf(Shelf shelf) {
+        return shelves.add(shelf);
     }
 }

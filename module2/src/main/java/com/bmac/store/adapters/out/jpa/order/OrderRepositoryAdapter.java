@@ -3,10 +3,10 @@ package com.bmac.store.adapters.out.jpa.order;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
 import com.bmac.store.domain.Product;
-import com.bmac.store.ports.out.BatchLoadPort;
-import com.bmac.store.ports.out.OrderCreatePort;
-import com.bmac.store.ports.out.OrderLoadPort;
-import com.bmac.store.ports.out.ProductLoadPort;
+import com.bmac.store.ports.out.batch.BatchLoadPort;
+import com.bmac.store.ports.out.product.OrderCreatePort;
+import com.bmac.store.ports.out.product.OrderLoadPort;
+import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

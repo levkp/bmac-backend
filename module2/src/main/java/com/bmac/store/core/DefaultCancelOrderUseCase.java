@@ -3,14 +3,14 @@ package com.bmac.store.core;
 import com.bmac.common.cutoff.DailyCutoffTime;
 import com.bmac.store.exception.CutoffTimePassedException;
 import com.bmac.store.exception.OrderAlreadyCancelledException;
-import com.bmac.store.exception.StoreEntityNotFoundException;
+import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.domain.BatchActivity;
 import com.bmac.store.domain.Order;
 import com.bmac.store.ports.in.CancelOrderCommand;
 import com.bmac.store.ports.in.CancelOrderUseCase;
-import com.bmac.store.ports.out.BatchActivityCreatePort;
-import com.bmac.store.ports.out.BatchActivityLoadPort;
-import com.bmac.store.ports.out.OrderLoadPort;
+import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
+import com.bmac.store.ports.out.batch.BatchActivityLoadPort;
+import com.bmac.store.ports.out.product.OrderLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +35,7 @@ public class DefaultCancelOrderUseCase implements CancelOrderUseCase {
     @Override
     public void cancel(CancelOrderCommand command) {
         Order order = orderLoader.loadById(command.id()).orElseThrow(
-                () -> new StoreEntityNotFoundException(Order.class, UUID.class, command.id().toString())
+                () -> new EntityNotFoundException(Order.class, UUID.class, command.id().toString())
         );
 
         batchActivityLoader.loadByOrderId(order.getId()).forEach(activity -> {

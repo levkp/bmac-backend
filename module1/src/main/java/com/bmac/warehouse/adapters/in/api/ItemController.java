@@ -1,7 +1,7 @@
 package com.bmac.warehouse.adapters.in.api;
 
 import com.bmac.warehouse.adapters.in.api.dto.ItemDto;
-import com.bmac.warehouse.ports.in.LoadEveryItemUseCase;
+import com.bmac.warehouse.ports.in.item.LoadEveryItemQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 public class ItemController {
-    private final LoadEveryItemUseCase loadEveryItem;
+    private final LoadEveryItemQuery loadEveryItem;
 
     @Autowired
-    public ItemController(LoadEveryItemUseCase loadEveryItem) {
+    public ItemController(LoadEveryItemQuery loadEveryItem) {
         this.loadEveryItem = loadEveryItem;
     }
 

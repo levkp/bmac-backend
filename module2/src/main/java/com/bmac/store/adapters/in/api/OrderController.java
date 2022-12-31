@@ -5,7 +5,7 @@ import com.bmac.store.adapters.in.api.dto.OrderDto;
 import com.bmac.store.adapters.in.api.dto.OrderItemDto;
 import com.bmac.store.exception.CutoffTimePassedException;
 import com.bmac.store.exception.OrderAlreadyCancelledException;
-import com.bmac.store.exception.StoreEntityNotFoundException;
+import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.ports.in.CancelOrderCommand;
 import com.bmac.store.ports.in.CancelOrderUseCase;
 import com.bmac.store.ports.in.ReceiveOrderCommand;
@@ -53,7 +53,7 @@ public class OrderController {
     }
 
     @ExceptionHandler
-    public ResponseEntity<String> handleStoreEntityNotFoundException(StoreEntityNotFoundException exception) {
+    public ResponseEntity<String> handleStoreEntityNotFoundException(EntityNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
 

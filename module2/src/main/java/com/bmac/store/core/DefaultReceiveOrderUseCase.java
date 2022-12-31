@@ -2,15 +2,15 @@ package com.bmac.store.core;
 
 import com.bmac.common.cutoff.DailyCutoffTime;
 import com.bmac.store.domain.Product;
-import com.bmac.store.exception.StoreEntityNotFoundException;
+import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.domain.*;
 import com.bmac.store.ports.in.ReceiveOrderCommand;
 import com.bmac.store.ports.in.ReceiveOrderUseCase;
-import com.bmac.store.ports.out.BatchActivityCreatePort;
-import com.bmac.store.ports.out.BatchCreatePort;
-import com.bmac.store.ports.out.BatchLoadPort;
-import com.bmac.store.ports.out.OrderCreatePort;
-import com.bmac.store.ports.out.ProductLoadPort;
+import com.bmac.store.ports.out.batch.BatchActivityCreatePort;
+import com.bmac.store.ports.out.batch.BatchCreatePort;
+import com.bmac.store.ports.out.batch.BatchLoadPort;
+import com.bmac.store.ports.out.product.OrderCreatePort;
+import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +25,8 @@ import java.util.UUID;
 public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
     private final BatchLoadPort batchLoader;
-
     private final BatchCreatePort batchCreator;
-
     private final BatchActivityCreatePort batchActivityCreator;
-
     private final OrderCreatePort orderCreator;
     private final ProductLoadPort productLoader;
 
@@ -73,7 +70,7 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
         for(Map.Entry<UUID, Integer> item : orderLine.entrySet()) {
             Product product = productLoader.load(item.getKey()).orElseThrow(
-                    () -> new StoreEntityNotFoundException(Product.class, UUID.class, item.getKey().toString())
+                    () -> new EntityNotFoundException(Product.class, UUID.class, item.getKey().toString())
             );
             loadedOrderLine.put(product, item.getValue());
         }

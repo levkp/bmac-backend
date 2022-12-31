@@ -1,11 +1,15 @@
 package com.bmac.store.core;
 
-import com.bmac.store.exception.StoreEntityNotFoundException;
+import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.BatchActivity;
 import com.bmac.store.ports.in.ForwardBatchCommand;
 import com.bmac.store.ports.in.ForwardBatchUseCase;
-import com.bmac.store.ports.out.*;
+import com.bmac.store.ports.out.batch.BatchActivityLoadPort;
+import com.bmac.store.ports.out.batch.BatchForwardPort;
+import com.bmac.store.ports.out.batch.BatchLoadPort;
+import com.bmac.store.ports.out.batch.BatchUpdatePort;
+import com.bmac.store.ports.out.product.OrderLoadPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +43,7 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
     @Override
     public void forward(ForwardBatchCommand command) {
         Batch batch = batchLoader.loadByDate(command.timestamp()).orElseThrow(
-                () -> new StoreEntityNotFoundException(Batch.class, LocalDate.class, command.timestamp().toString())
+                () -> new EntityNotFoundException(Batch.class, LocalDate.class, command.timestamp().toString())
         );
 
 
