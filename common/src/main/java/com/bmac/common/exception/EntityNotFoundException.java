@@ -5,4 +5,8 @@ public class EntityNotFoundException extends RuntimeException {
         super(String.format("Unable to find %s with %s attribute %s",
                 entityClass.getSimpleName(), identifierClass.getSimpleName(), value));
     }
+
+    public EntityNotFoundException(Class entityClass, String id) {
+        super(String.format("Unable to find %s with id %s", entityClass.getSimpleName(), id));
+    }
 }

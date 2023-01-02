@@ -1,6 +1,5 @@
 package com.bmac.warehouse.domain;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Shelf {
 
     private final String id;
 
-    private Shelf.ActivityWindow activityWindow;
+    private final Shelf.ActivityWindow activityWindow = new Shelf.ActivityWindow();
 
     public Shelf(String id) {
         this.id = id;
@@ -31,13 +30,21 @@ public class Shelf {
         return activityWindow;
     }
 
-    public ShelfActivity load(UUID itemId, double amount) {
+
+    public ShelfActivity loadStock(UUID itemId, double amount) {
+        return changeStock(itemId, amount, ShelfActivity.Action.ADD);
+    }
+
+    public ShelfActivity unloadStock(UUID itemId, double amount) {
+        return changeStock(itemId, amount, ShelfActivity.Action.REMOVE);
+    }
+
+    private ShelfActivity changeStock(UUID itemId, double amount, ShelfActivity.Action action) {
         ShelfActivity activity = new ShelfActivity(
-                ShelfActivity.Action.LOAD, UUID.randomUUID(), id, itemId, amount, LocalDateTime.now()
+                action, UUID.randomUUID(), id, itemId, amount, LocalDateTime.now()
         );
         activityWindow.add(activity);
         return activity;
     }
-
 
 }

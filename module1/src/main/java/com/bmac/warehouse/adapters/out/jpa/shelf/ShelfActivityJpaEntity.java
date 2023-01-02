@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "wh.shelf_activities")
+@Table(name = "wh.shelfactivities")
 public class ShelfActivityJpaEntity {
     @Id
     @Type(type = "uuid-char")
@@ -42,4 +42,28 @@ public class ShelfActivityJpaEntity {
     }
 
     protected ShelfActivityJpaEntity() { }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getShelfId() {
+        return shelfId;
+    }
+
+    public UUID getItemId() {
+        return itemId;
+    }
+
+    public ShelfActivity.Action getAction() {
+        return action;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 }

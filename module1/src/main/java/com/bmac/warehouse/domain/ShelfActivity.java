@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public record ShelfActivity(ShelfActivity.Action action, UUID id, String shelfId, UUID itemId, double amount, LocalDateTime timestamp) {
     public enum Action {
-        LOAD,
-        UNLOAD
+        ADD,
+        REMOVE
     }
 }

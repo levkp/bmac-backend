@@ -5,5 +5,5 @@ import com.bmac.warehouse.domain.Shelf;
 import java.util.Optional;
 
 public interface ShelfLoadPort {
-    Optional<Shelf> load(String id);
+    Optional<Shelf> loadById(String id);
 }

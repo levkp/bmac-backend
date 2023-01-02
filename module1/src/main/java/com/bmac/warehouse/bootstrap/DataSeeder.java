@@ -7,6 +7,8 @@ import com.bmac.warehouse.domain.Shelf;
 import com.bmac.warehouse.domain.Temperature;
 import com.bmac.warehouse.ports.in.item.CreateItemCommand;
 import com.bmac.warehouse.ports.in.item.CreateItemUseCase;
+import com.bmac.warehouse.ports.in.stock.ChangeStockCommand;
+import com.bmac.warehouse.ports.in.stock.ChangeStockUseCase;
 import com.bmac.warehouse.ports.out.sector.SectorCreatePort;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
@@ -23,12 +25,13 @@ import java.util.*;
 public class DataSeeder implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final CreateItemUseCase createItem;
-
+    private final ChangeStockUseCase changeStock;
     private final SectorCreatePort sectorCreator;
 
     @Autowired
-    public DataSeeder(CreateItemUseCase createItem, SectorCreatePort sectorCreator) {
+    public DataSeeder(CreateItemUseCase createItem, ChangeStockUseCase changeStock, SectorCreatePort sectorCreator) {
         this.createItem = createItem;
+        this.changeStock = changeStock;
         this.sectorCreator = sectorCreator;
     }
 
@@ -38,7 +41,6 @@ public class DataSeeder implements CommandLineRunner {
 
         Faker faker = new Faker();
         Random random = new Random();
-
         List<Item> dryItems = new ArrayList<>();
         List<Item> cooledItems = new ArrayList<>();
         List<Item> refrigeratedItem = new ArrayList<>();
@@ -81,12 +83,20 @@ public class DataSeeder implements CommandLineRunner {
                 new Sector("REF.A", Temperature.REFRIGERATED)
         );
 
+        Map<Temperature, List<Item>> itemsByTemperature = Map.of(
+                Temperature.DRY, dryItems, Temperature.COOLED, cooledItems, Temperature.REFRIGERATED, refrigeratedItem);
+
         for(Sector sector : sectors) {
             for(int i = 0; i < 5; i++) {
                 sector.addShelf(new Shelf(sector.getId().concat(String.valueOf(i))));
             }
             sectorCreator.create(sector);
-        }
 
+            for(Shelf shelf : sector.getShelves()) {
+                List<Item> items = itemsByTemperature.get(sector.getTemperature());
+                UUID itemId = items.get(random.nextInt(items.size())).getId();
+                changeStock.add(new ChangeStockCommand(shelf.getId(), itemId, random.nextInt(100) / 10.0));
+            }
+        }
     }
 }

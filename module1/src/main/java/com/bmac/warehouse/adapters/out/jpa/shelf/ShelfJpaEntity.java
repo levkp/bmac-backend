@@ -8,7 +8,6 @@ public class ShelfJpaEntity {
 
     @Id
     private String id;
-
     private String sectorId;
 
     public ShelfJpaEntity(String id, String sectorId) {
@@ -17,4 +16,12 @@ public class ShelfJpaEntity {
     }
 
     protected ShelfJpaEntity() { }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSectorId() {
+        return sectorId;
+    }
 }
