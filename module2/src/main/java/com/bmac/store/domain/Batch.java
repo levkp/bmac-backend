@@ -21,9 +21,7 @@ public class Batch {
 
     private UUID id;
     private LocalDate date;
-
     private LocalDateTime createTime;
-
     private LocalDateTime forwardTime;
     private Batch.ActivityWindow activityWindow;
 
@@ -51,11 +49,9 @@ public class Batch {
     public List<BatchActivity> forward(List<UUID> orderIds) {
         LocalDateTime forwardTime = LocalDateTime.now();
         setForwardTime(forwardTime);
-
         List<BatchActivity> activities = orderIds.stream()
                 .map(id -> new BatchActivity(BatchActivity.Action.FORWARD, id, forwardTime))
                 .toList();
-
         activityWindow.addAll(activities);
         return activities;
     }

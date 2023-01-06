@@ -31,18 +31,16 @@ public class Shelf {
     }
 
 
-    public ShelfActivity loadStock(UUID itemId, double amount) {
+    public ShelfActivity addStock(UUID itemId, double amount) {
         return changeStock(itemId, amount, ShelfActivity.Action.ADD);
     }
 
-    public ShelfActivity unloadStock(UUID itemId, double amount) {
+    public ShelfActivity removeStock(UUID itemId, double amount) {
         return changeStock(itemId, amount, ShelfActivity.Action.REMOVE);
     }
 
     private ShelfActivity changeStock(UUID itemId, double amount, ShelfActivity.Action action) {
-        ShelfActivity activity = new ShelfActivity(
-                action, UUID.randomUUID(), id, itemId, amount, LocalDateTime.now()
-        );
+        ShelfActivity activity = new ShelfActivity(action, id, itemId, amount, LocalDateTime.now());
         activityWindow.add(activity);
         return activity;
     }

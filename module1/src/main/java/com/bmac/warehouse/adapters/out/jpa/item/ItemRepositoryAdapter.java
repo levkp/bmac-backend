@@ -1,6 +1,6 @@
 package com.bmac.warehouse.adapters.out.jpa.item;
 
-import com.bmac.warehouse.adapters.exception.WarehouseEntityConstraintException;
+import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.ports.out.item.ItemCreatePort;
 import com.bmac.warehouse.ports.out.item.ItemLoadPort;

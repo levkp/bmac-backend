@@ -3,14 +3,14 @@ server:
   servlet:
     context-path: /store
 
-logging:
-  file:
-    name: store.log
-    path: module2/log/
+#logging:
+#  file:
+#    name: store.log
+#    path: module2/log/
 
 spring:
   profiles:
-    active: dev,shell
+    active: shell,dev
   shell:
     interactive:
       enabled: false

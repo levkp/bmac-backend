@@ -22,22 +22,25 @@ public class BatchActivityRepositoryAdapter implements BatchActivityCreatePort, 
 
     @Override
     public void create(UUID batchId, BatchActivity activity) {
-        BatchActivityJpaEntity jpaActivity = new BatchActivityJpaEntity();
-        jpaActivity.setBatchId(batchId);
-        jpaActivity.setOrderId(activity.orderId());
-        jpaActivity.setAction(activity.action());
-        jpaActivity.setTimestamp(activity.timestamp());
-        repository.save(jpaActivity);
+        repository.save(toJpaEntity(activity, batchId));
+    }
+
+    @Override
+    public void createAll(UUID batchId, List<BatchActivity> activities) {
+        repository.saveAll(activities.stream()
+                .map(activity -> toJpaEntity(activity, batchId))
+                .toList()
+        );
     }
 
     @Override
     public List<BatchActivity> loadByBatchId(UUID batchId) {
-        return handleQueryResult(repository.findByBatchId(batchId));
+        return repository.findByBatchId(batchId).stream().map(this::fromJpaEntity).toList();
     }
 
     @Override
     public List<BatchActivity> loadByOrderId(UUID id) {
-        return handleQueryResult(repository.findByOrderId(id));
+        return repository.findByOrderId(id).stream().map(this::fromJpaEntity).toList();
     }
 
     @Override
@@ -54,12 +57,11 @@ public class BatchActivityRepositoryAdapter implements BatchActivityCreatePort, 
                 .toList();
     }
 
-    private List<BatchActivity> handleQueryResult(List<BatchActivityJpaEntity> jpaEntities) {
-        return jpaEntities.stream()
-                .map(jpaEntity -> new BatchActivity(
-                        jpaEntity.getAction(),
-                        jpaEntity.getOrderId(),
-                        jpaEntity.getTimestamp()))
-                .toList();
+    private BatchActivityJpaEntity toJpaEntity(BatchActivity activity, UUID batchId) {
+        return new BatchActivityJpaEntity(batchId, activity.orderId(), activity.action(), activity.timestamp());
+    }
+
+    private BatchActivity fromJpaEntity(BatchActivityJpaEntity jpaEntity) {
+        return new BatchActivity(jpaEntity.getAction(), jpaEntity.getOrderId(), jpaEntity.getTimestamp());
     }
 }

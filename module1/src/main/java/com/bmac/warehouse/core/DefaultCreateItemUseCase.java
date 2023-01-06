@@ -1,6 +1,6 @@
 package com.bmac.warehouse.core;
 
-import com.bmac.warehouse.adapters.exception.WarehouseEntityConstraintException;
+import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.ports.in.item.CreateItemCommand;
 import com.bmac.warehouse.ports.in.item.CreateItemUseCase;

@@ -5,20 +5,34 @@ server:
 
 spring:
   profiles:
-    active: dev
+    active: shell
   shell:
     interactive:
       enabled: false
-#  config:
-#    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
+  config:
+    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
     hibernate:
       ddl-auto: none
-
   datasource:
     url: "jdbc:mysql://172.18.0.1:3308/fruit_db"
     username: "dev"
     password: "password"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: myuser
+    password: mypassword
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 6
+          max-interval: 5s
+          multiplier: 2
+      direct:
+        auto-startup: false

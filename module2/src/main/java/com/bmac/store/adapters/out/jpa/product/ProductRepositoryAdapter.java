@@ -5,6 +5,7 @@ import com.bmac.store.ports.out.product.ProductCreatePort;
 import com.bmac.store.ports.out.product.ProductLoadPort;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,12 +25,25 @@ public class ProductRepositoryAdapter implements ProductCreatePort, ProductLoadP
     }
 
     @Override
-    public Optional<Product> load(UUID uuid) {
+    public Optional<Product> loadById(UUID uuid) {
         Optional<ProductJpaEntity> optional = repository.findById(uuid);
         if (optional.isPresent()) {
             ProductJpaEntity jpaEntity = optional.get();
             return Optional.of(new Product(jpaEntity.getId(), jpaEntity.getName(), jpaEntity.getPrice()));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<Product> loadAllByIds(List<UUID> ids) {
+        return repository.findAllById(ids).stream().map(this::fromJpaEntity).toList();
+    }
+
+    private Product fromJpaEntity(ProductJpaEntity jpaEntity) {
+        return new Product(jpaEntity.getId(), jpaEntity.getName(), jpaEntity.getPrice());
+    }
+
+    private ProductJpaEntity toJpaEntity(Product entity) {
+        return new ProductJpaEntity(entity.getId(), entity.getName(), entity.getPrice());
     }
 }

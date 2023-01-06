@@ -1,6 +1,5 @@
 package com.bmac.store.adapters.out.jpa.order;
 
-import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
 import com.bmac.store.domain.Product;
 import com.bmac.store.ports.out.batch.BatchLoadPort;
@@ -17,9 +16,7 @@ import java.util.*;
 public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
 
     private final OrderRepository repository;
-
     private final ProductLoadPort productLoader;
-
     private final BatchLoadPort batchLoader;
 
     @Autowired
@@ -42,34 +39,66 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
         repository.save(jpaEntity);
     }
 
+//    @Override
+//    @Transactional
+//    public List<Order> loadAllByBatchId(UUID batchId) {
+//        List<Order> orders = new ArrayList<>();
+//        Map<UUID, Product> loadedProducts = new HashMap<>(); // Todo: is this helpful?
+//
+//        for(OrderJpaEntity jpaEntity : repository.findAllByBatchId(batchId)) {
+//
+//            Map<Product, Integer> orderLine = new HashMap<>();
+//
+//            for(Map.Entry<String, Integer> orderLineItem : jpaEntity.getOrderLine().entrySet()) {
+//                UUID productId = UUID.fromString(orderLineItem.getKey());
+//                Product product;
+//
+//                if (loadedProducts.containsKey(productId)) {
+//                    product = loadedProducts.get(productId);
+//                } else {
+//                    Optional<Product> optional = productLoader.loadById(productId);
+//                    if (optional.isEmpty()) { continue; } // Todo: what happens now?
+//                    product = optional.get();
+//                    loadedProducts.put(productId, product);
+//                }
+//
+//                orderLine.put(product, orderLineItem.getValue());
+//            }
+//
+//            orders.add(new Order(jpaEntity.getId(), jpaEntity.getTimestamp(), orderLine));
+//        }
+//
+//        return orders;
+//    }
+
+
     @Override
     @Transactional
     public List<Order> loadAllByBatchId(UUID batchId) {
+        return handleQueryResult(repository.findAllByBatchId(batchId));
+    }
+
+    @Override
+    @Transactional
+    public List<Order> loadAllByIds(List<UUID> ids) {
+        return handleQueryResult(repository.findAllById(ids));
+    }
+
+    private List<Order> handleQueryResult(List<OrderJpaEntity> jpaEntities) {
         List<Order> orders = new ArrayList<>();
-        Map<UUID, Product> loadedProducts = new HashMap<>(); // Todo: is this helpful?
+        for(OrderJpaEntity jpaEntity : jpaEntities) {
+            List<UUID> productIds = jpaEntity.getOrderLine()
+                    .keySet()
+                    .stream()
+                    .map(UUID::fromString)
+                    .toList();
 
-        for(OrderJpaEntity jpaEntity : repository.findAllByBatchId(batchId)) {
             Map<Product, Integer> orderLine = new HashMap<>();
-
-            for(Map.Entry<String, Integer> orderLineItem : jpaEntity.getOrderLine().entrySet()) {
-                UUID productId = UUID.fromString(orderLineItem.getKey());
-                Product product;
-
-                if (loadedProducts.containsKey(productId)) {
-                    product = loadedProducts.get(productId);
-                } else {
-                    Optional<Product> optional = productLoader.load(productId);
-                    if (optional.isEmpty()) { continue; } // Todo: what happens now?
-                    product = optional.get();
-                    loadedProducts.put(productId, product);
-                }
-
-                orderLine.put(product, orderLineItem.getValue());
-            }
-
+            productLoader.loadAllByIds(productIds).forEach(
+                    product -> orderLine.put(product, jpaEntity.getOrderLine().get(product.getId().toString()))
+            );
             orders.add(new Order(jpaEntity.getId(), jpaEntity.getTimestamp(), orderLine));
         }
-
         return orders;
     }
 
@@ -79,21 +108,9 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
         if (optional.isEmpty()) return Optional.empty();
 
         OrderJpaEntity orderJpaEntity = optional.get();
-        Optional<Batch> batchOptional = batchLoader.loadById(orderJpaEntity.getBatchId());
 
-        if (batchOptional.isEmpty()) {
-            // Todo this should never happen
-            return Optional.empty();
-        }
-
-        return Optional.of(new Order(orderJpaEntity.getId(), batchOptional.get(), orderJpaEntity.getTimestamp()));
-    }
-
-    @Override
-    public List<Order> loadAllByIds(List<UUID> ids) {
-
-        repository.findAllById(ids);
-
-        return null;
+        return batchLoader.loadById(orderJpaEntity.getBatchId()).map(
+                batch -> new Order(orderJpaEntity.getId(), batch, orderJpaEntity.getTimestamp())
+        );
     }
 }

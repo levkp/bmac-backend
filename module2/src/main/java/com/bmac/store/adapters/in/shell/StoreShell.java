@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @Profile("shell")
 @ShellComponent
+@SuppressWarnings("unused")
 public class StoreShell {
 
     private final ForwardBatchUseCase batchForward;

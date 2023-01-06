@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "wh.shelfactivities")
+@Table(name = "wh.shelf_activities")
 public class ShelfActivityJpaEntity {
     @Id
     @Type(type = "uuid-char")
@@ -32,8 +32,7 @@ public class ShelfActivityJpaEntity {
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
-    public ShelfActivityJpaEntity(UUID id, String shelfId, UUID itemId, ShelfActivity.Action action, double amount, LocalDateTime timestamp) {
-        this.id = id;
+    public ShelfActivityJpaEntity(String shelfId, UUID itemId, ShelfActivity.Action action, double amount, LocalDateTime timestamp) {
         this.shelfId = shelfId;
         this.itemId = itemId;
         this.action = action;

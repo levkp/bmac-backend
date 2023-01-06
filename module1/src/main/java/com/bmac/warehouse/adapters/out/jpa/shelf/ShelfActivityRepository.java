@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface ShelfActivityRepository extends JpaRepository<ShelfActivityJpaEntity, UUID> {
     List<ShelfActivityJpaEntity> findByShelfId(String id);
+    List<ShelfActivityJpaEntity> findByItemId(UUID id);
 }

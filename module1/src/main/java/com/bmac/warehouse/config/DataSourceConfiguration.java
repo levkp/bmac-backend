@@ -16,7 +16,6 @@ public class DataSourceConfiguration {
     private final Environment env;
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-
     @Autowired
     public DataSourceConfiguration(Environment env) {
         this.env = env;
@@ -25,8 +24,8 @@ public class DataSourceConfiguration {
     @Bean
     public DataSource getDataSource() {
 
-        log.debug("Datasource details: " + env.getProperty("spring.datasource.url"));
-        log.debug("Datasource details: " + env.getProperty("spring.datasource.username"));
+        log.warn("Datasource details: " + env.getProperty("spring.datasource.url"));
+        log.warn("Datasource details: " + env.getProperty("spring.datasource.username"));
 
         return DataSourceBuilder.create()
                 .url(env.getProperty("spring.datasource.url"))

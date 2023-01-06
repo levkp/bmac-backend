@@ -69,7 +69,7 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
         Map<Product, Integer> loadedOrderLine = new HashMap<>();
 
         for(Map.Entry<UUID, Integer> item : orderLine.entrySet()) {
-            Product product = productLoader.load(item.getKey()).orElseThrow(
+            Product product = productLoader.loadById(item.getKey()).orElseThrow(
                     () -> new EntityNotFoundException(Product.class, UUID.class, item.getKey().toString())
             );
             loadedOrderLine.put(product, item.getValue());

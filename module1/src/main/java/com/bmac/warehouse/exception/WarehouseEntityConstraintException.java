@@ -1,3 +1,3 @@
-package com.bmac.warehouse.adapters.exception;
+package com.bmac.warehouse.exception;
 
 public class WarehouseEntityConstraintException extends RuntimeException { }

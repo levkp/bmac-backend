@@ -1,6 +1,6 @@
 package com.bmac.warehouse.bootstrap;
 
-import com.bmac.warehouse.adapters.exception.WarehouseEntityConstraintException;
+import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.domain.Sector;
 import com.bmac.warehouse.domain.Shelf;
