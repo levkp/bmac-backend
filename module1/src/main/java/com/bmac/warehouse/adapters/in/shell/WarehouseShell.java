@@ -21,15 +21,21 @@ public class WarehouseShell {
         this.stockCounter = stockCounter;
     }
 
-    @ShellMethod(key = "countStock", value = "Count stock by item id and/or shelf id")
-    public void countStock(@ShellOption(defaultValue = "null") String shelfId,
-                           @ShellOption(defaultValue = "null") String itemId) {
-        if (!shelfId.equals("null") && !itemId.equals("null")) {
-            System.out.println(stockCounter.countByShelfIdAndItemId(shelfId, UUID.fromString(itemId)));
-        } else if (!itemId.equals("")) {
-            System.out.println(stockCounter.countByItemId(UUID.fromString(itemId)));
-        } else {
-            System.out.println("You need to specify the shelf id, item id or both");
+    @ShellMethod(key = "countStock", value = "Count stock by item id")
+    public double countStock(@ShellOption(defaultValue = "0") String itemId, @ShellOption(defaultValue = "0") String shelfId) {
+
+        if (!shelfId.equals("0")) {
+            return stockCounter.countByShelfIdAndItemId(shelfId, UUID.fromString(itemId));
         }
+
+        return stockCounter.countByItemId(UUID.fromString(itemId));
+
+//        if (!shelfId.equals("0") && !itemId.equals("0")) {
+//            System.out.println(stockCounter.countByShelfIdAndItemId(shelfId, UUID.fromString(itemId)));
+//        } else if (!itemId.equals("")) {
+//            System.out.println(stockCounter.countByItemId(UUID.fromString(itemId)));
+//        } else {
+//            System.out.println("You need to specify the shelf id, item id or both");
+//        }
     }
 }

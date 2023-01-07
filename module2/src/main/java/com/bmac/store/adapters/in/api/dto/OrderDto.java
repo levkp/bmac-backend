@@ -10,9 +10,7 @@ public class OrderDto {
     @NotNull @NotEmpty
     private List<@Valid OrderItemDto> orderLine;
 
-    public OrderDto() {
-
-    }
+    public OrderDto() { }
 
     public List<OrderItemDto> getOrderLine() {
         return orderLine;
@@ -20,7 +18,6 @@ public class OrderDto {
 
     public void setOrderLine(List<OrderItemDto> orderLine) {
         this.orderLine = orderLine;
-
     }
 }
 

@@ -9,11 +9,9 @@ import java.util.UUID;
 public class Batch {
     public static class ActivityWindow {
         private final List<BatchActivity> activities = new ArrayList<>();
-
-        public boolean add(BatchActivity activity) {
-            return activities.add(activity);
+        public void add(BatchActivity activity) {
+            activities.add(activity);
         }
-
         public void addAll(List<BatchActivity> activities) {
             this.activities.addAll(activities);
         }
@@ -34,7 +32,7 @@ public class Batch {
         this.activityWindow = activityWindow;
     }
 
-    public BatchActivity addOrder(Order order) {
+    public BatchActivity receiveOrder(Order order) {
         BatchActivity activity = new BatchActivity(BatchActivity.Action.RECEIVE, order.getId(), LocalDateTime.now());
         activityWindow.add(activity);
         return activity;

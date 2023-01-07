@@ -31,7 +31,7 @@ public class OrderRepositoryAdapter implements OrderCreatePort, OrderLoadPort {
     @Override
     public void create(Order order) {
         HashMap<String, Integer> orderLine = new HashMap<>();
-        for(Map.Entry<Product, Integer> item : order.getOrderLine().entrySet()) {
+        for(Map.Entry<Product, Integer> item : order.getOrderedProducts().entrySet()) {
             orderLine.put(item.getKey().getId().toString(), item.getValue());
         }
         OrderJpaEntity jpaEntity = new OrderJpaEntity(

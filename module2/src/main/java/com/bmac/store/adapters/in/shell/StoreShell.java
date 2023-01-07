@@ -1,14 +1,13 @@
 package com.bmac.store.adapters.in.shell;
 
-import com.bmac.store.ports.in.CancelOrderCommand;
-import com.bmac.store.ports.in.CancelOrderUseCase;
-import com.bmac.store.ports.in.ForwardBatchCommand;
-import com.bmac.store.ports.in.ForwardBatchUseCase;
+import com.bmac.store.domain.Product;
+import com.bmac.store.ports.in.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -20,27 +19,32 @@ public class StoreShell {
 
     private final ForwardBatchUseCase batchForward;
     private final CancelOrderUseCase cancelOrder;
+    private final CreateProductUseCase createProduct;
 
     @Autowired
-    public StoreShell(ForwardBatchUseCase batchForward, CancelOrderUseCase cancelOrder) {
+    public StoreShell(ForwardBatchUseCase batchForward,
+                      CancelOrderUseCase cancelOrder,
+                      CreateProductUseCase createProduct) {
         this.batchForward = batchForward;
         this.cancelOrder = cancelOrder;
+        this.createProduct = createProduct;
     }
 
     @ShellMethod(key = "forwardLatestBatch", value = "Forward the latest order batch")
-    public String forwardLatestBatch() {
+    public void forwardLatestBatch() {
         batchForward.forward(new ForwardBatchCommand(LocalDate.now()));
-        return "Success";
+        System.out.println("Batch forwarded");
     }
 
     @ShellMethod(key = "cancelOrder", value = "Cancel an order by its ID")
-    public String cancelOrder(String id) {
+    public void cancelOrder(@ShellOption String id) {
         cancelOrder.cancel(new CancelOrderCommand(UUID.fromString(id)));
-        return "Success";
+        System.out.println("Order cancelled");
     }
 
-    @ShellMethod(value = "Print a message")
-    public String print(String message) {
-        return message;
+    @ShellMethod(key = "createProduct")
+    public void createProduct(@ShellOption String name, @ShellOption double price) {
+        Product product = createProduct.create(new CreateProductCommand(name, price));
+        System.out.println("Product created with id " + product.getId());
     }
 }

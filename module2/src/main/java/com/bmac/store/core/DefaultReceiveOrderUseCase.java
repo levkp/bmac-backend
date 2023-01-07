@@ -59,7 +59,7 @@ public class DefaultReceiveOrderUseCase implements ReceiveOrderUseCase {
 
         Order order = new Order(UUID.randomUUID(), batch, LocalDateTime.now(), orderLine);
         orderCreator.create(order);
-        BatchActivity activity = batch.addOrder(order);
+        BatchActivity activity = batch.receiveOrder(order);
         batchActivityCreator.create(batch.getId(), activity);
 
         return order.getId();

@@ -1,11 +1,11 @@
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8081 }
   servlet:
     context-path: /warehouse
 
 spring:
   profiles:
-    active: shell
+    active: dev,shell
   shell:
     interactive:
       enabled: false
