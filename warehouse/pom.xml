@@ -2,6 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <parent>
         <artifactId>thebakery</artifactId>
         <groupId>com.bmac</groupId>
@@ -9,9 +10,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>application</artifactId>
 
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>warehouse</artifactId>
+    <name>warehouse</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,22 +24,7 @@
             <groupId>com.bmac</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bmac</groupId>
-            <artifactId>warehouse</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bmac</groupId>
-            <artifactId>store</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.bmac</groupId>
-            <artifactId>factory</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
-
 </project>

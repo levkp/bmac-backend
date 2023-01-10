@@ -6,9 +6,9 @@
     <modules>
         <module>application</module>
         <module>common</module>
-        <module>module1</module>
-        <module>module2</module>
-        <module>module3</module>
+        <module>warehouse</module>
+        <module>store</module>
+        <module>factory</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
