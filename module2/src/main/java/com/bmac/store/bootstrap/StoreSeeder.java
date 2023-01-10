@@ -17,13 +17,13 @@ import java.util.*;
 
 @Component
 @Profile("seed")
-public class DataSeeder implements CommandLineRunner {
+public class StoreSeeder implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final CreateProductUseCase createProduct;
     private final ReceiveOrderUseCase receiveOrder;
 
     @Autowired
-    public DataSeeder(CreateProductUseCase createProduct, ReceiveOrderUseCase receiveOrder) {
+    public StoreSeeder(CreateProductUseCase createProduct, ReceiveOrderUseCase receiveOrder) {
         this.createProduct = createProduct;
         this.receiveOrder = receiveOrder;
     }

@@ -1,4 +1,4 @@
-package com.bmac.warehouse.ports.in.stock;
+package com.bmac.warehouse.ports.in;
 
 import com.bmac.warehouse.exception.OutOfStockException;
 

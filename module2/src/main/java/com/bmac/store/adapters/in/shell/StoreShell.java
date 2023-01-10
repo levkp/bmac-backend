@@ -5,11 +5,14 @@ import com.bmac.store.ports.in.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
+import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Profile("shell")
@@ -17,14 +20,17 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public class StoreShell {
 
+    private final Environment env;
     private final ForwardBatchUseCase batchForward;
     private final CancelOrderUseCase cancelOrder;
     private final CreateProductUseCase createProduct;
 
     @Autowired
-    public StoreShell(ForwardBatchUseCase batchForward,
+    public StoreShell(Environment env,
+                      ForwardBatchUseCase batchForward,
                       CancelOrderUseCase cancelOrder,
                       CreateProductUseCase createProduct) {
+        this.env = env;
         this.batchForward = batchForward;
         this.cancelOrder = cancelOrder;
         this.createProduct = createProduct;
@@ -46,5 +52,16 @@ public class StoreShell {
     public void createProduct(@ShellOption String name, @ShellOption double price) {
         Product product = createProduct.create(new CreateProductCommand(name, price));
         System.out.println("Product created with id " + product.getId());
+    }
+
+    @ShellMethod(key = "fakeOrders")
+    public void fakeOrders(@ShellOption int amount) {
+        System.out.println(amount);
+    }
+
+    public Availability fakeOrdersAvailability() {
+        return Arrays.asList(env.getActiveProfiles()).contains("dev")
+                ? Availability.available()
+                : Availability.unavailable("This command can only be used if the dev profile is active");
     }
 }

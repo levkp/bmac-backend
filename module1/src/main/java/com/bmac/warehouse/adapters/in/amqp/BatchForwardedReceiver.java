@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class BatchForwardedReceiver implements AMQPReceiver {
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final EventType eventType = EventType.StoreBatchForwarded;
-
     private final ObjectMapper objectMapper;
 
     public BatchForwardedReceiver(ObjectMapper objectMapper) {
@@ -27,10 +26,8 @@ public class BatchForwardedReceiver implements AMQPReceiver {
 
     @Override
     public void receive(JsonNode message) throws JsonProcessingException {
-        log.info("Receiving" + eventType.name() + " event");
-
         BatchForwardedEvent event = objectMapper.treeToValue(message, BatchForwardedEvent.class);
 
-
+        System.out.println(event.orderLine());
     }
 }

@@ -1,8 +1,8 @@
 package com.bmac.warehouse.core;
 
 import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.ports.in.item.LoadEveryItemQuery;
-import com.bmac.warehouse.ports.out.item.ItemLoadPort;
+import com.bmac.warehouse.ports.in.LoadEveryItemQuery;
+import com.bmac.warehouse.ports.out.ItemLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

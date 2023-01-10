@@ -1,7 +1,7 @@
 package com.bmac.warehouse.adapters.in.api;
 
 import com.bmac.warehouse.adapters.in.api.dto.ItemDto;
-import com.bmac.warehouse.ports.in.item.LoadEveryItemQuery;
+import com.bmac.warehouse.ports.in.LoadEveryItemQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

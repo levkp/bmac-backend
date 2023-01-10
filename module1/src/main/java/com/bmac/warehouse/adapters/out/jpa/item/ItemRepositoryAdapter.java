@@ -2,8 +2,8 @@ package com.bmac.warehouse.adapters.out.jpa.item;
 
 import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.ports.out.item.ItemCreatePort;
-import com.bmac.warehouse.ports.out.item.ItemLoadPort;
+import com.bmac.warehouse.ports.out.ItemCreatePort;
+import com.bmac.warehouse.ports.out.ItemLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;

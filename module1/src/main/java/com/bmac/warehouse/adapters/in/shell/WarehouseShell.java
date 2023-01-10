@@ -1,6 +1,6 @@
 package com.bmac.warehouse.adapters.in.shell;
 
-import com.bmac.warehouse.ports.in.item.CountStockQuery;
+import com.bmac.warehouse.ports.in.CountStockQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.shell.standard.ShellComponent;

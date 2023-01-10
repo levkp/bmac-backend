@@ -4,12 +4,12 @@ import com.bmac.warehouse.exception.OutOfStockException;
 import com.bmac.warehouse.domain.Item;
 import com.bmac.warehouse.domain.Shelf;
 import com.bmac.warehouse.exception.WarehouseEntityNotFoundException;
-import com.bmac.warehouse.ports.in.item.CountStockQuery;
-import com.bmac.warehouse.ports.in.stock.ChangeStockCommand;
-import com.bmac.warehouse.ports.in.stock.ChangeStockUseCase;
-import com.bmac.warehouse.ports.out.item.ItemLoadPort;
-import com.bmac.warehouse.ports.out.shelf.ShelfActivityCreatePort;
-import com.bmac.warehouse.ports.out.shelf.ShelfLoadPort;
+import com.bmac.warehouse.ports.in.CountStockQuery;
+import com.bmac.warehouse.ports.in.ChangeStockCommand;
+import com.bmac.warehouse.ports.in.ChangeStockUseCase;
+import com.bmac.warehouse.ports.out.ItemLoadPort;
+import com.bmac.warehouse.ports.out.ShelfActivityCreatePort;
+import com.bmac.warehouse.ports.out.ShelfLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

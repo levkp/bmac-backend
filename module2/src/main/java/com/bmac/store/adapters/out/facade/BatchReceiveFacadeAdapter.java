@@ -1,8 +1,8 @@
 package com.bmac.store.adapters.out.facade;
 
 import com.bmac.common.events.BatchForwardedEvent;
-import com.bmac.common.facade.BatchReceiveCommand;
-import com.bmac.common.facade.BatchReceiveFacade;
+import com.bmac.common.facade.ReceiveBatchCommand;
+import com.bmac.common.facade.ReceiveBatchFacade;
 import com.bmac.store.domain.Batch;
 import com.bmac.store.domain.Order;
 import com.bmac.store.ports.out.batch.BatchForwardPort;
@@ -19,10 +19,10 @@ import java.util.List;
 @Component
 public class BatchReceiveFacadeAdapter implements BatchForwardPort {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final BatchReceiveFacade facade;
+    private final ReceiveBatchFacade facade;
 
     @Autowired
-    public BatchReceiveFacadeAdapter(@Autowired(required = false) BatchReceiveFacade facade) {
+    public BatchReceiveFacadeAdapter(@Autowired(required = false) ReceiveBatchFacade facade) {
         this.facade = facade;
     }
 
@@ -34,6 +34,6 @@ public class BatchReceiveFacadeAdapter implements BatchForwardPort {
                 order -> new BatchForwardedEvent.OrderLineItem(order.getId(), order.getTimestamp(), order.getOrderedProductsWithUUIDKey())
         ).toList();
 
-        facade.receive(new BatchReceiveCommand(new BatchForwardedEvent(batch.getId(), batch.getDate(), items)));
+        facade.receive(new ReceiveBatchCommand(new BatchForwardedEvent(batch.getId(), batch.getDate(), items)));
     }
 }

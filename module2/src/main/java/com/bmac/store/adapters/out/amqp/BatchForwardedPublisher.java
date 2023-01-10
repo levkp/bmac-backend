@@ -10,6 +10,8 @@ import com.bmac.store.domain.Order;
 import com.bmac.store.ports.out.batch.BatchForwardPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -19,16 +21,16 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Profile("amqp")
 @Component
-public class BatchForwardPublisher implements BatchForwardPort {
-
+public class BatchForwardedPublisher implements BatchForwardPort {
+    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final EventType eventType = EventType.StoreBatchForwarded;
     private final ApplicationEventPublisher eventPublisher;
     private final RabbitTemplate template;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public BatchForwardPublisher(ApplicationEventPublisher eventPublisher, RabbitTemplate template, ObjectMapper objectMapper) {
+    public BatchForwardedPublisher(ApplicationEventPublisher eventPublisher, RabbitTemplate template, ObjectMapper objectMapper) {
         this.eventPublisher = eventPublisher;
         this.template = template;
         this.objectMapper = objectMapper;
@@ -36,21 +38,20 @@ public class BatchForwardPublisher implements BatchForwardPort {
 
     @Override
     public void forward(Batch batch, List<Order> orders) throws JsonProcessingException {
-        List<BatchForwardedEvent.OrderLineItem> orderLineItems = new ArrayList<>();
+        log.debug("Publishing " + eventType.name() + " via fanout exchange");
 
-        for(Order order : orders) {
-            orderLineItems.add(new BatchForwardedEvent.OrderLineItem(order.getId(), order.getTimestamp(), order.getOrderedProductsWithUUIDKey()));
-        }
-
+        List<BatchForwardedEvent.OrderLineItem> orderLineItems = orders.stream()
+                .map(order -> new BatchForwardedEvent.OrderLineItem(order.getId(), order.getTimestamp(), order.getOrderedProductsWithUUIDKey()))
+                .toList();
 
         template.convertAndSend(
-                AMQPExchangeConfiguration.fanoutExchange,
+                AMQPExchangeConfiguration.FANOUT,
                 "",
                 objectMapper.writeValueAsString(
                         new EventMessage(
                                 new EventHeader(
                                         UUID.randomUUID(),
-                                        EventType.StoreBatchForwarded,
+                                        eventType,
                                         LocalDateTime.now()),
                                 objectMapper.valueToTree(
                                         new BatchForwardedEvent(
@@ -61,7 +62,5 @@ public class BatchForwardPublisher implements BatchForwardPort {
                                 )
                         )
                 ));
-
-        System.out.println("Massive success");
     }
 }

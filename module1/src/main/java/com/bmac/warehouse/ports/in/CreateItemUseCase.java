@@ -1,4 +1,4 @@
-package com.bmac.warehouse.ports.in.item;
+package com.bmac.warehouse.ports.in;
 
 import com.bmac.warehouse.domain.Item;
 

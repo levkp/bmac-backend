@@ -1,6 +1,5 @@
 package com.bmac.warehouse.config;
 
-import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
@@ -8,22 +7,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AMQPExchangeConfiguration {
-    public static final String fanoutExchange = "bmac-fanout";
-    public static final String topicExchange = "bmac-topic";
-    public static final String dlqExchange = "dlq-direct";
+    public static final String FANOUT = "bmac.fanout";
+    public static final String TOPIC = "bmac.topic";
 
     @Bean
     FanoutExchange fanoutExchange() {
-        return new FanoutExchange(fanoutExchange);
+        return new FanoutExchange(FANOUT);
     }
 
     @Bean
     TopicExchange topicExchange() {
-        return new TopicExchange(topicExchange);
+        return new TopicExchange(TOPIC);
     }
-
-    @Bean
-    DirectExchange dlqExchange() { return new DirectExchange(dlqExchange);}
-
 }
 

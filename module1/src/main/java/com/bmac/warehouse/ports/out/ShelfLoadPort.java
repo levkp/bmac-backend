@@ -1,4 +1,4 @@
-package com.bmac.warehouse.ports.out.shelf;
+package com.bmac.warehouse.ports.out;
 
 import com.bmac.warehouse.domain.Shelf;
 

@@ -2,7 +2,7 @@ package com.bmac.warehouse.adapters.out.jpa.sector;
 
 import com.bmac.warehouse.adapters.out.jpa.shelf.ShelfJpaEntity;
 import com.bmac.warehouse.domain.Sector;
-import com.bmac.warehouse.ports.out.sector.SectorCreatePort;
+import com.bmac.warehouse.ports.out.SectorCreatePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
