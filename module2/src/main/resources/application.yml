@@ -1,16 +1,13 @@
 server:
-  port: ${PORT:8081}
+  port: ${PORT:8082}
   servlet:
     context-path: /store
 
-#logging:
-#  file:
-#    name: store.log
-#    path: module2/log/
-
 spring:
+  application:
+    name: store
   profiles:
-    active: shell,dev
+    active: shell, dev
   shell:
     interactive:
       enabled: false
@@ -41,3 +38,34 @@ spring:
           multiplier: 2
       direct:
         auto-startup: false
+
+# dev profile
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.bmac.store: DEBUG
+
+# shell profile
+---
+spring:
+  config:
+    activate:
+      on-profile: shell
+  shell:
+    interactive:
+      enabled: true
+# seed profile
+---
+spring:
+  config:
+    activate:
+      on-profile: seed
+  jpa:
+    hibernate:
+      ddl-auto: create

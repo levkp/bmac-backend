@@ -1,11 +1,11 @@
 server:
-  port: ${PORT:8081 }
+  port: ${PORT:8081}
   servlet:
     context-path: /warehouse
 
 spring:
   profiles:
-    active: dev,shell
+    active: dev
   shell:
     interactive:
       enabled: false
@@ -36,3 +36,34 @@ spring:
           multiplier: 2
       direct:
         auto-startup: false
+# Dev
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.bmac.warehouse: DEBUG
+
+# Seed
+---
+spring:
+  config:
+    activate:
+      on-profile: seed
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+# Shell
+---
+spring:
+  config:
+    activate:
+      on-profile: shell
+  shell:
+    interactive:
+      enabled: true
