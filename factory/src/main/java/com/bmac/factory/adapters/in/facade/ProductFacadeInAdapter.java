@@ -1,7 +1,7 @@
 package com.bmac.factory.adapters.in.facade;
 
 import com.bmac.common.domain.CommonEntities;
-import com.bmac.common.facade.FactoryCommonEntityFacade;
+import com.bmac.common.facade.CommonEntityFacade;
 import com.bmac.factory.domain.Product;
 import com.bmac.factory.ports.out.LoadFactoryEntityPort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ProductFacadeInAdapter implements FactoryCommonEntityFacade<CommonEntities.Product> {
+public class ProductFacadeInAdapter implements CommonEntityFacade<CommonEntities.Product> {
 
     private final LoadFactoryEntityPort<Product> productLoader;
 

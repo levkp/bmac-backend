@@ -2,8 +2,8 @@ package com.bmac.warehouse.adapters.out.jpa.shelf;
 
 import com.bmac.warehouse.domain.Shelf;
 import com.bmac.warehouse.domain.ShelfActivity;
-import com.bmac.warehouse.ports.out.ShelfActivityLoadPort;
-import com.bmac.warehouse.ports.out.ShelfLoadPort;
+import com.bmac.warehouse.ports.out.shelf.ShelfActivityLoadPort;
+import com.bmac.warehouse.ports.out.shelf.ShelfLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

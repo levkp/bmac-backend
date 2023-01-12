@@ -15,7 +15,7 @@ public class IngredientJpaEntity {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)

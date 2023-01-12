@@ -1,6 +1,6 @@
 package com.bmac.store.adapters.in.scheduled;
 
-import com.bmac.common.cutoff.DailyCutoffTime;
+import com.bmac.common.helpers.DailyCutoffTime;
 import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.ports.in.batch.ForwardBatchCommand;
 import com.bmac.store.ports.in.batch.ForwardBatchUseCase;

@@ -37,7 +37,7 @@ public class BatchForwardedPublisher implements BatchForwardPort {
 
     @Override
     public void forward(Batch batch, List<StoreOrder> orders) throws JsonProcessingException {
-        log.debug("Publishing " + eventType.name() + " via fanout exchange");
+        log.info("Publishing " + eventType.name() + " via fanout exchange");
 
         List<BatchForwardedEvent.OrderLineItem> orderLineItems = orders.stream()
                 .map(order -> new BatchForwardedEvent.OrderLineItem(order.getId(), order.getTimestamp(), order.getOrderedProductsWithUUIDKey()))

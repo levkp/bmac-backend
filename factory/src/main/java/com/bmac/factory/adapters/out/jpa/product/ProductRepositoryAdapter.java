@@ -8,6 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class ProductRepositoryAdapter implements CreateFactoryEntityPort<Product>, LoadFactoryEntityPort<Product> {
@@ -30,6 +32,11 @@ public class ProductRepositoryAdapter implements CreateFactoryEntityPort<Product
     @Override
     public List<Product> loadAll() {
         return repository.findAll().stream().map(this::fromJpaEntity).toList();
+    }
+
+    @Override
+    public Optional<Product> loadById(UUID id) {
+        return repository.findById(id).map(this::fromJpaEntity);
     }
 
     private Product fromJpaEntity(ProductJpaEntity jpaEntity) {

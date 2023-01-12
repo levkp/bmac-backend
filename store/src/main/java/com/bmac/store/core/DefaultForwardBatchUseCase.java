@@ -19,7 +19,7 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
 
     private final BatchLoadPort batchLoader;
     private final BatchUpdatePort batchUpdater;
-    private final BatchForwardPort batchForwarder;
+    private final List<BatchForwardPort> batchForwarders;
     private final BatchActivityLoadPort batchActivityLoader;
     private final BatchActivityCreatePort batchActivityCreator;
     private final LoadStoreOrderPort orderLoader;
@@ -27,13 +27,13 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
     @Autowired
     public DefaultForwardBatchUseCase(BatchLoadPort batchLoader,
                                       BatchUpdatePort batchUpdater,
-                                      BatchForwardPort batchForwarder,
+                                      List<BatchForwardPort> batchForwarders,
                                       BatchActivityLoadPort batchActivityLoader,
                                       BatchActivityCreatePort batchActivityCreator,
                                       LoadStoreOrderPort orderLoader) {
         this.batchLoader = batchLoader;
         this.batchUpdater = batchUpdater;
-        this.batchForwarder = batchForwarder;
+        this.batchForwarders = batchForwarders;
         this.batchActivityLoader = batchActivityLoader;
         this.batchActivityCreator = batchActivityCreator;
         this.orderLoader = orderLoader;
@@ -49,11 +49,12 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
         batchActivityCreator.createAll(batch.getId(), batch.forward(orderIds));
         batchUpdater.update(batch);
 
-        try {
-            batchForwarder.forward(batch, orderLoader.loadAllByIds(orderIds));
-        } catch (JsonProcessingException exception) {
-            // Todo
-            exception.printStackTrace();
-        }
+        batchForwarders.forEach(forwarder -> {
+            try {
+                forwarder.forward(batch, orderLoader.loadAllByIds(orderIds));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }

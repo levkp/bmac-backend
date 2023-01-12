@@ -1,10 +1,9 @@
 package com.bmac.warehouse.core;
 
-import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
 import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.ports.in.CreateItemCommand;
-import com.bmac.warehouse.ports.in.CreateItemUseCase;
-import com.bmac.warehouse.ports.out.ItemCreatePort;
+import com.bmac.warehouse.ports.in.item.CreateItemCommand;
+import com.bmac.warehouse.ports.in.item.CreateItemUseCase;
+import com.bmac.warehouse.ports.out.item.ItemCreatePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,7 @@ public class DefaultCreateItemUseCase implements CreateItemUseCase {
     }
 
     @Override
-    public Item create(CreateItemCommand command) throws WarehouseEntityConstraintException {
+    public Item create(CreateItemCommand command) {
         Item item = new Item(
                 UUID.randomUUID(),
                 command.name(),

@@ -1,14 +1,16 @@
 package com.bmac.warehouse.domain;
 
+import com.bmac.common.IngredientTemperature;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Sector {
     private final String id;
-    private final Temperature temperature;
+    private final IngredientTemperature temperature;
     private final List<Shelf> shelves = new ArrayList<>();
 
-    public Sector(String id, Temperature temperature) {
+    public Sector(String id, IngredientTemperature temperature) {
         this.id = id;
         this.temperature = temperature;
     }
@@ -17,7 +19,7 @@ public class Sector {
         return id;
     }
 
-    public Temperature getTemperature() {
+    public IngredientTemperature getTemperature() {
         return temperature;
     }
 

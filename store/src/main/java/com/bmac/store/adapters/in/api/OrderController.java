@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
-
-// Todo: JSON responses
-
 @RestController
 public class OrderController {
     private final ReceiveStoreOrderUseCase receiveOrder;

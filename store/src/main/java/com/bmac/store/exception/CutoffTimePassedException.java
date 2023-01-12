@@ -1,6 +1,6 @@
 package com.bmac.store.exception;
 
-import com.bmac.common.cutoff.DailyCutoffTime;
+import com.bmac.common.helpers.DailyCutoffTime;
 
 public class CutoffTimePassedException extends RuntimeException {
     public CutoffTimePassedException() {

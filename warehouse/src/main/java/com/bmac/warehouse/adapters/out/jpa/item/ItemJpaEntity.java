@@ -1,7 +1,7 @@
 package com.bmac.warehouse.adapters.out.jpa.item;
 
-import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.domain.Temperature;
+import com.bmac.common.IngredientTemperature;
+import com.bmac.common.IngredientUnit;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -24,16 +24,16 @@ public class ItemJpaEntity {
     private double maximum;
 
     @Enumerated(EnumType.STRING)
-    private Temperature temperature;
+    private IngredientTemperature temperature;
 
     @Enumerated(EnumType.STRING)
-    private Item.Unit unit;
+    private IngredientUnit unit;
 
     @Column(nullable = false)
     private int expiryDays;
 
 
-    public ItemJpaEntity(UUID id, String name, double minimum, double maximum, Temperature temperature, Item.Unit unit) {
+    public ItemJpaEntity(UUID id, String name, double minimum, double maximum, IngredientTemperature temperature, IngredientUnit unit) {
         this.id = id;
         this.name = name;
         this.minimum = minimum;
@@ -62,12 +62,36 @@ public class ItemJpaEntity {
         return maximum;
     }
 
-    public Temperature getTemperature() {
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMinimum(double minimum) {
+        this.minimum = minimum;
+    }
+
+    public void setMaximum(double maximum) {
+        this.maximum = maximum;
+    }
+
+    public IngredientTemperature getTemperature() {
         return temperature;
     }
 
-    public Item.Unit getUnit() {
+    public void setTemperature(IngredientTemperature temperature) {
+        this.temperature = temperature;
+    }
+
+    public IngredientUnit getUnit() {
         return unit;
+    }
+
+    public void setUnit(IngredientUnit unit) {
+        this.unit = unit;
     }
 
     public int getExpiryDays() {

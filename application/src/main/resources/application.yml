@@ -7,7 +7,7 @@ spring:
   application:
     name: bmac-backend
   profiles:
-    active: seed
+    active: shell,dev
   shell:
     interactive:
       enabled: false
@@ -46,11 +46,9 @@ spring:
   config:
     activate:
       on-profile: dev
-  jpa:
-    show-sql: true
 logging:
   level:
-    com.bmac.store: DEBUG
+    com.bmac: TRACE
 
 # shell profile
 ---
@@ -71,3 +69,15 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+# log profile
+---
+spring:
+  config:
+    activate:
+      on-profile: log
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.bmac: TRACE

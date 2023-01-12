@@ -9,10 +9,10 @@ public class InboundOrder {
     private UUID batchId;
     private LocalDate date;
     private LocalDateTime received;
-    private LocalDateTime shipped;
-    private Map<Item, Double> orderLine = new HashMap<>();
+    private LocalDateTime shipped; // Todo, also add factory received
+    private Map<UUID, Double> neededItems = new HashMap<>();
 
-    public InboundOrder(UUID id, UUID batchId, LocalDate date, LocalDateTime received) {
+    public InboundOrder(UUID id, UUID batchId, LocalDate date, LocalDateTime received, Map<UUID, Double> neededItems) {
         this.id = id;
         this.batchId = batchId;
         this.date = date;
@@ -39,7 +39,7 @@ public class InboundOrder {
         return shipped;
     }
 
-    public Map<Item, Double> getOrderLine() {
-        return orderLine;
+    public Map<UUID, Double> getNeededItems() {
+        return neededItems;
     }
 }

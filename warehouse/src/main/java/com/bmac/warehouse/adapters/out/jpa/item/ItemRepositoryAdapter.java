@@ -1,9 +1,10 @@
 package com.bmac.warehouse.adapters.out.jpa.item;
 
-import com.bmac.warehouse.exception.WarehouseEntityConstraintException;
+import com.bmac.common.IngredientTemperature;
+import com.bmac.common.exception.EntityConstraintException;
 import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.ports.out.ItemCreatePort;
-import com.bmac.warehouse.ports.out.ItemLoadPort;
+import com.bmac.warehouse.ports.out.item.ItemCreatePort;
+import com.bmac.warehouse.ports.out.item.LoadItemPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class ItemRepositoryAdapter implements ItemCreatePort, ItemLoadPort {
+public class ItemRepositoryAdapter implements ItemCreatePort, LoadItemPort {
 
     private final ItemRepository repository;
 
@@ -33,23 +34,28 @@ public class ItemRepositoryAdapter implements ItemCreatePort, ItemLoadPort {
                     item.getTemperature(),
                     item.getUnit()));
         } catch (DataIntegrityViolationException exception) {
-            throw new WarehouseEntityConstraintException();
+            throw new EntityConstraintException(exception.getMessage());
         }
     }
 
     @Override
     public List<Item> loadAll() {
         return repository.findAll().stream()
-                .map(this::mapJpaEntity)
+                .map(this::fromJpaEntity)
                 .toList();
     }
 
     @Override
     public Optional<Item> loadById(UUID id) {
-        return repository.findById(id).map(this::mapJpaEntity);
+        return repository.findById(id).map(this::fromJpaEntity);
     }
 
-    private Item mapJpaEntity(ItemJpaEntity jpaEntity) {
+    @Override
+    public List<Item> loadAllByTemperature(IngredientTemperature temperature) {
+        return repository.findAllByTemperature(temperature).stream().map(this::fromJpaEntity).toList();
+    }
+
+    private Item fromJpaEntity(ItemJpaEntity jpaEntity) {
         return new Item(
                 jpaEntity.getId(),
                 jpaEntity.getName(),
@@ -59,5 +65,4 @@ public class ItemRepositoryAdapter implements ItemCreatePort, ItemLoadPort {
                 jpaEntity.getUnit(),
                 jpaEntity.getExpiryDays());
     }
-
 }

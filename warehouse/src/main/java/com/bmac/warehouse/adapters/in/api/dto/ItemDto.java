@@ -1,7 +1,7 @@
 package com.bmac.warehouse.adapters.in.api.dto;
 
-import com.bmac.warehouse.domain.Item;
-import com.bmac.warehouse.domain.Temperature;
+import com.bmac.common.IngredientTemperature;
+import com.bmac.common.IngredientUnit;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -20,11 +20,11 @@ public class ItemDto {
     @Min(0)
     private double maximum;
     @NotNull
-    private Temperature temperature;
+    private IngredientTemperature temperature;
     @NotNull
-    private Item.Unit unit;
+    private IngredientUnit unit;
 
-    public ItemDto(UUID id, String name, double minimum, double maximum, Temperature temperature, Item.Unit unit) {
+    public ItemDto(UUID id, String name, double minimum, double maximum, IngredientTemperature temperature, IngredientUnit unit) {
         this.id = id;
         this.name = name;
         this.minimum = minimum;
@@ -65,19 +65,5 @@ public class ItemDto {
         this.maximum = maximum;
     }
 
-    public Temperature getTemperature() {
-        return temperature;
-    }
 
-    public void setTemperature(Temperature temperature) {
-        this.temperature = temperature;
-    }
-
-    public Item.Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Item.Unit unit) {
-        this.unit = unit;
-    }
 }

@@ -1,8 +1,8 @@
 package com.bmac.warehouse.core;
 
 import com.bmac.warehouse.domain.ShelfActivity;
-import com.bmac.warehouse.ports.in.CountStockQuery;
-import com.bmac.warehouse.ports.out.ShelfActivityLoadPort;
+import com.bmac.warehouse.ports.in.stock.CountStockQuery;
+import com.bmac.warehouse.ports.out.shelf.ShelfActivityLoadPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@
 //
 //import com.bmac.common.events.BatchForwardedEvent;
 //import com.bmac.common.events.EventType;
-//import com.bmac.warehouse.ports.in.ReceiveOrderUseCase;
+//import com.bmac.warehouse.ports.in.order.ReceiveOrderUseCase;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.JsonNode;
 //import com.fasterxml.jackson.databind.ObjectMapper;

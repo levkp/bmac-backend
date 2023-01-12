@@ -42,8 +42,8 @@ public class StoreSeeder implements CommandLineRunner {
     public void run(String... args) {
         if (Arrays.asList(env.getActiveProfiles()).contains("seed")) {
             syncProducts();
+            fakeOrders(20);
         }
-        fakeOrders(20);
     }
 
     private void syncProducts() {

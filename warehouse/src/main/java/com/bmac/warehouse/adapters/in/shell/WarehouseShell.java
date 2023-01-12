@@ -1,7 +1,7 @@
 package com.bmac.warehouse.adapters.in.shell;
 
-import com.bmac.warehouse.adapters.out.facade.IngredientFacadeAdapter;
-import com.bmac.warehouse.ports.in.CountStockQuery;
+import com.bmac.warehouse.adapters.out.facade.IngredientFacadeOutAdapter;
+import com.bmac.warehouse.ports.in.stock.CountStockQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.shell.standard.ShellComponent;
@@ -14,12 +14,12 @@ import java.util.UUID;
 @ShellComponent
 @SuppressWarnings("unused")
 public class WarehouseShell {
-    IngredientFacadeAdapter facadeAdapter;
+    IngredientFacadeOutAdapter facadeAdapter;
 
     private final CountStockQuery stockCounter;
 
     @Autowired
-    public WarehouseShell(CountStockQuery stockCounter, IngredientFacadeAdapter facadeAdapter) {
+    public WarehouseShell(CountStockQuery stockCounter, IngredientFacadeOutAdapter facadeAdapter) {
         this.stockCounter = stockCounter;
         this.facadeAdapter = facadeAdapter;
     }

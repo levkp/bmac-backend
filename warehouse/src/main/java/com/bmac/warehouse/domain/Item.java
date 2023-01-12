@@ -1,27 +1,22 @@
 package com.bmac.warehouse.domain;
 
+import com.bmac.common.IngredientTemperature;
+import com.bmac.common.IngredientUnit;
+
 import java.util.Objects;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class Item {
-    public enum Unit {
-        KILOGRAM,
-        GRAM,
-        LITRE,
-        MILLILITRE,
-        PIECES
-    }
-
     private UUID id;
     private String name;
     private double minimum;
     private double maximum;
-    private Temperature temperature;
-    private Item.Unit unit;
+    private IngredientTemperature temperature;
+    private IngredientUnit unit;
     private int expiryDays;
 
-    public Item(UUID id, String name, double minAmount, double maxAmount, Temperature temperature, Unit unit, int expiryDays) {
+    public Item(UUID id, String name, double minAmount, double maxAmount, IngredientTemperature temperature, IngredientUnit unit, int expiryDays) {
         this.id = id;
         this.name = name;
         this.minimum = minAmount;
@@ -47,12 +42,16 @@ public class Item {
         return maximum;
     }
 
-    public Temperature getTemperature() {
+    public IngredientTemperature getTemperature() {
         return temperature;
     }
 
-    public Unit getUnit() {
+    public IngredientUnit getUnit() {
         return unit;
+    }
+
+    public int getExpiryDays() {
+        return expiryDays;
     }
 
     @Override

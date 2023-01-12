@@ -38,7 +38,7 @@ public class CommonEntities {
     }
 
     public static class Recipe extends CommonEntity {
-        public final CommonEntities.Product product;
+        public final Product product;
         public final Map<Ingredient, Double> ingredients;
 
         public Recipe(UUID id, Product product, Map<Ingredient, Double> ingredients) {
