@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface ItemLoadPort {
     List<Item> loadAll();
     Optional<Item> loadById(UUID id);
+
 }

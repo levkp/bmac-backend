@@ -1,14 +1,17 @@
 package com.bmac.store.adapters.out.jpa.batch;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import javax.persistence.*;
-
-import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name = "store.batches")
+@Table(name = "sto_batches")
 public class BatchJpaEntity {
 
     @Id

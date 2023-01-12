@@ -6,10 +6,10 @@ import com.bmac.store.adapters.in.api.dto.OrderDto;
 import com.bmac.store.adapters.in.api.dto.OrderItemDto;
 import com.bmac.store.exception.CutoffTimePassedException;
 import com.bmac.store.exception.OrderAlreadyCancelledException;
-import com.bmac.store.ports.in.CancelOrderCommand;
-import com.bmac.store.ports.in.CancelOrderUseCase;
-import com.bmac.store.ports.in.ReceiveOrderCommand;
-import com.bmac.store.ports.in.ReceiveOrderUseCase;
+import com.bmac.store.ports.in.order.CancelStoreOrderCommand;
+import com.bmac.store.ports.in.order.CancelStoreOrderUseCase;
+import com.bmac.store.ports.in.order.ReceiveStoreOrderCommand;
+import com.bmac.store.ports.in.order.ReceiveStoreOrderUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
 
 @RestController
 public class OrderController {
-    private final ReceiveOrderUseCase receiveOrder;
-    private final CancelOrderUseCase cancelOrder;
+    private final ReceiveStoreOrderUseCase receiveOrder;
+    private final CancelStoreOrderUseCase cancelOrder;
 
     @Autowired
-    public OrderController(ReceiveOrderUseCase receiveOrder, CancelOrderUseCase cancelOrder) {
+    public OrderController(ReceiveStoreOrderUseCase receiveOrder, CancelStoreOrderUseCase cancelOrder) {
         this.receiveOrder = receiveOrder;
         this.cancelOrder = cancelOrder;
     }
@@ -41,14 +41,14 @@ public class OrderController {
         Map<UUID, Integer> orderLine = dto.getOrderLine()
                 .stream()
                 .collect(Collectors.toMap(OrderItemDto::getProductId, OrderItemDto::getAmount));
-        UUID orderId = receiveOrder.receive(new ReceiveOrderCommand(orderLine));
+        UUID orderId = receiveOrder.receive(new ReceiveStoreOrderCommand(orderLine));
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Order id: " + orderId);
     }
 
     @DeleteMapping("/api/orders/{id}")
     public ResponseEntity<String> cancel(@PathVariable UUID id) {
-        cancelOrder.cancel(new CancelOrderCommand(id));
+        cancelOrder.cancel(new CancelStoreOrderCommand(id));
         return ResponseEntity.ok("Order " + id + " cancelled");
     }
 

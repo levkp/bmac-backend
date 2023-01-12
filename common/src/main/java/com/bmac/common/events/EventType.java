@@ -5,6 +5,12 @@ public enum EventType {
     WarehouseInboundOrderCreated,
     WarehouseOutboundOrderCreated,
 
+
+    IngredientListRequested,
+
+    IngredientListForwarded,
+
+
     FactoryDeliveryReceived,
 
 }

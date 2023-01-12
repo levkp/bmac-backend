@@ -1,0 +1,72 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /factory
+
+spring:
+  application:
+    name: factory
+  profiles:
+    active: dev
+  shell:
+    interactive:
+      enabled: false
+  config:
+    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:mysql://localhost:3308/fruit_db}
+    username: ${DATASOURCE_USER:dev}
+    password: ${DATASOURCE_PASS:password}
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: myuser
+    password: mypassword
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1s
+          max-attempts: 6
+          max-interval: 5s
+          multiplier: 2
+      direct:
+        auto-startup: false
+
+# dev profile
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.bmac.store: DEBUG
+
+# shell profile
+---
+spring:
+  config:
+    activate:
+      on-profile: shell
+  shell:
+    interactive:
+      enabled: true
+# seed profile
+---
+spring:
+  config:
+    activate:
+      on-profile: seed
+  jpa:
+    hibernate:
+      ddl-auto: create
+

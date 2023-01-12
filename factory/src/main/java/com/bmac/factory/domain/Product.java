@@ -2,10 +2,19 @@ package com.bmac.factory.domain;
 
 import java.util.UUID;
 
-public class Product {
+public class Product extends FactoryEntity {
+    private String name;
 
-    UUID id;
-    String name;
-    String instructions;
+    public Product(UUID id, String name) {
+        super(id);
+        this.name = name;
+    }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

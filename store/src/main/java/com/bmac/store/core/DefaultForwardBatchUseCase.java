@@ -2,10 +2,10 @@ package com.bmac.store.core;
 
 import com.bmac.common.exception.EntityNotFoundException;
 import com.bmac.store.domain.Batch;
-import com.bmac.store.ports.in.ForwardBatchCommand;
-import com.bmac.store.ports.in.ForwardBatchUseCase;
+import com.bmac.store.ports.in.batch.ForwardBatchCommand;
+import com.bmac.store.ports.in.batch.ForwardBatchUseCase;
 import com.bmac.store.ports.out.batch.*;
-import com.bmac.store.ports.out.product.OrderLoadPort;
+import com.bmac.store.ports.out.order.LoadStoreOrderPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
     private final BatchForwardPort batchForwarder;
     private final BatchActivityLoadPort batchActivityLoader;
     private final BatchActivityCreatePort batchActivityCreator;
-    private final OrderLoadPort orderLoader;
+    private final LoadStoreOrderPort orderLoader;
 
     @Autowired
     public DefaultForwardBatchUseCase(BatchLoadPort batchLoader,
@@ -30,7 +30,7 @@ public class DefaultForwardBatchUseCase implements ForwardBatchUseCase {
                                       BatchForwardPort batchForwarder,
                                       BatchActivityLoadPort batchActivityLoader,
                                       BatchActivityCreatePort batchActivityCreator,
-                                      OrderLoadPort orderLoader) {
+                                      LoadStoreOrderPort orderLoader) {
         this.batchLoader = batchLoader;
         this.batchUpdater = batchUpdater;
         this.batchForwarder = batchForwarder;

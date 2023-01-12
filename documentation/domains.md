@@ -13,7 +13,7 @@ This document describes the 3 identified domains of B-MaC.
 
 ## Store
 
-Customers use the Store to order the products. Its responsibilities are accepting new orders and cancellations before the cutoff time, awarding loyalty points, and finally, forwarding the order line to the Factory.
+Customers use the Store to inboundOrder the products. Its responsibilities are accepting new orders and cancellations before the cutoff time, awarding loyalty points, and finally, forwarding the inboundOrder line to the Factory.
 
 Store Managers can manipulate the offering, creating or removing products.
 
@@ -57,9 +57,9 @@ After the cutoff time, the Factory receives the orders the Store collected durin
 | Concept        | Definition | Synonyms                 | Remarks                    |
 |----------------|------------|--------------------------|----------------------------|
 | Delivery       |            |                          |                            |
-| Inbound order  |            |                          |                            |
+| Inbound inboundOrder  |            |                          |                            |
 | Item           |            | Ingredient               |                            |
-| Outbound order |            |                          |                            |
+| Outbound inboundOrder |            |                          |                            |
 | Shipment       |            |                          |                            |
 | Stock          |            |                          |                            |
 | Supplier       |            |                          |                            |

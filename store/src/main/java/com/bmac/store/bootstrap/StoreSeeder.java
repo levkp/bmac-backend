@@ -1,60 +1,74 @@
 package com.bmac.store.bootstrap;
 
-import com.bmac.store.domain.Product;
-import com.bmac.store.ports.in.ReceiveOrderCommand;
-import com.bmac.store.ports.in.ReceiveOrderUseCase;
-import com.bmac.store.ports.in.CreateProductCommand;
-import com.bmac.store.ports.in.CreateProductUseCase;
-import com.github.javafaker.Faker;
+import com.bmac.store.domain.StoreProduct;
+import com.bmac.store.ports.in.order.ReceiveStoreOrderCommand;
+import com.bmac.store.ports.in.order.ReceiveStoreOrderUseCase;
+import com.bmac.store.ports.in.product.CreateStoreProductCommand;
+import com.bmac.store.ports.in.product.CreateStoreProductUseCase;
+import com.bmac.store.ports.out.product.LoadCommonProductPort;
+import com.bmac.store.ports.out.product.LoadStoreProductPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-@Profile("seed")
+@Order(2)
 public class StoreSeeder implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(getClass());
-    private final CreateProductUseCase createProduct;
-    private final ReceiveOrderUseCase receiveOrder;
+    private final Environment env;
+    private final LoadCommonProductPort commonProductLoader;
+    private final LoadStoreProductPort productLoader;
+    private final CreateStoreProductUseCase createProduct;
+    private final ReceiveStoreOrderUseCase receiveOrder;
 
-    @Autowired
-    public StoreSeeder(CreateProductUseCase createProduct, ReceiveOrderUseCase receiveOrder) {
+    public StoreSeeder(Environment env,
+                       LoadCommonProductPort commonProductLoader,
+                       LoadStoreProductPort productLoader,
+                       CreateStoreProductUseCase createProduct,
+                       ReceiveStoreOrderUseCase receiveOrder) {
+        this.env = env;
+        this.commonProductLoader = commonProductLoader;
+        this.productLoader = productLoader;
         this.createProduct = createProduct;
         this.receiveOrder = receiveOrder;
     }
 
     @Override
     public void run(String... args) {
-        log.info("Seeding database with fake products");
-
-        Faker faker = new Faker();
-        Random random = new Random();
-        List<UUID> productIds = new ArrayList<>();
-
-        for(int i = 0; i < 100; i++) {
-            String food = faker.food().dish(); // Sadly, JavaFaker can't do desserts
-            // Todo: round to two decimal places
-            double price = random.nextDouble(1.0, 9.9);
-            Product product = createProduct.create(new CreateProductCommand(food, price));
-            productIds.add(product.getId());
+        if (Arrays.asList(env.getActiveProfiles()).contains("seed")) {
+            syncProducts();
         }
+        fakeOrders(20);
+    }
 
-        log.info("Seeding database with fake orders");
+    private void syncProducts() {
+        log.info("Syncing products from factory");
+        Random random = new Random();
+        commonProductLoader.loadAll().forEach(commonProduct -> {
+            createProduct.create(new CreateStoreProductCommand(commonProduct.id, commonProduct.name, random.nextInt(999) / 10.0));
+        });
+    }
+
+    public void fakeOrders(int amount) {
+        log.info("Faking " + amount + " orders");
+
+        List<UUID> productIds = productLoader.loadAll().stream().map(StoreProduct::getId).toList();
+        Random random = new Random();
 
         // Creating 20 fake orders
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < amount; i++) {
             Map<UUID, Integer> orderLine = new HashMap<>();
-            // Let's say one order can contain between 1 and 10 items
+            // Let's say one order can contain between 1 and 10 products
             for(int j = 0; j < random.nextInt(1, 10); j++) {
                 // Let's say one item can be ordered between 1 and 15 times at once
                 orderLine.put(productIds.get(random.nextInt(productIds.size())), random.nextInt(1, 15));
             }
-            receiveOrder.receive(new ReceiveOrderCommand(orderLine));
+            receiveOrder.receive(new ReceiveStoreOrderCommand(orderLine));
         }
     }
 }

@@ -32,13 +32,13 @@ public class Batch {
         this.activityWindow = activityWindow;
     }
 
-    public BatchActivity receiveOrder(Order order) {
+    public BatchActivity receiveOrder(StoreOrder order) {
         BatchActivity activity = new BatchActivity(BatchActivity.Action.RECEIVE, order.getId(), LocalDateTime.now());
         activityWindow.add(activity);
         return activity;
     }
     
-    public BatchActivity cancelOrder(Order order) {
+    public BatchActivity cancelOrder(StoreOrder order) {
         BatchActivity activity = new BatchActivity(BatchActivity.Action.CANCEL, order.getId(), LocalDateTime.now());
         activityWindow.add(activity);
         return activity;

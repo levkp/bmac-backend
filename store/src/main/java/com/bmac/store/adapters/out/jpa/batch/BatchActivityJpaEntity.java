@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "store.batchactivities")
+@Table(name = "sto_batchactivities")
 public class BatchActivityJpaEntity {
 
     @Id

@@ -1,18 +1,27 @@
 server:
-  port: ${PORT:8081}
+  port: ${PORT:8080}
   servlet:
     context-path:
 
 spring:
+  application:
+    name: bmac-backend
+  profiles:
+    active: seed
+  shell:
+    interactive:
+      enabled: false
   config:
     additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
-    show-sql: true
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
   datasource:
     url: ${DATASOURCE_URL:jdbc:mysql://localhost:3308/fruit_db}
-    username: ${DATASOURCE_USER:user}
+    username: ${DATASOURCE_USER:dev}
     password: ${DATASOURCE_PASS:password}
   rabbitmq:
     host: localhost
@@ -27,5 +36,38 @@ spring:
           max-attempts: 6
           max-interval: 5s
           multiplier: 2
+      direct:
+        auto-startup: false
 
 
+# dev profile
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+logging:
+  level:
+    com.bmac.store: DEBUG
+
+# shell profile
+---
+spring:
+  config:
+    activate:
+      on-profile: shell
+  shell:
+    interactive:
+      enabled: true
+
+# seed profile
+---
+spring:
+  config:
+    activate:
+      on-profile: seed
+  jpa:
+    hibernate:
+      ddl-auto: create

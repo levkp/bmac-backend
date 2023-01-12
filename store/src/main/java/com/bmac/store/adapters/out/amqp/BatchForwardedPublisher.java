@@ -4,9 +4,9 @@ import com.bmac.common.events.BatchForwardedEvent;
 import com.bmac.common.events.EventHeader;
 import com.bmac.common.events.EventMessage;
 import com.bmac.common.events.EventType;
-import com.bmac.store.config.AMQPExchangeConfiguration;
+import com.bmac.store.config.AMQPExchangeModuleConfig;
 import com.bmac.store.domain.Batch;
-import com.bmac.store.domain.Order;
+import com.bmac.store.domain.StoreOrder;
 import com.bmac.store.ports.out.batch.BatchForwardPort;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -37,7 +36,7 @@ public class BatchForwardedPublisher implements BatchForwardPort {
     }
 
     @Override
-    public void forward(Batch batch, List<Order> orders) throws JsonProcessingException {
+    public void forward(Batch batch, List<StoreOrder> orders) throws JsonProcessingException {
         log.debug("Publishing " + eventType.name() + " via fanout exchange");
 
         List<BatchForwardedEvent.OrderLineItem> orderLineItems = orders.stream()
@@ -45,7 +44,7 @@ public class BatchForwardedPublisher implements BatchForwardPort {
                 .toList();
 
         template.convertAndSend(
-                AMQPExchangeConfiguration.FANOUT,
+                AMQPExchangeModuleConfig.FANOUT,
                 "",
                 objectMapper.writeValueAsString(
                         new EventMessage(

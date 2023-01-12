@@ -1,7 +1,7 @@
 package com.bmac.warehouse.ports.out;
 
-import com.bmac.warehouse.domain.Order;
+import com.bmac.warehouse.domain.InboundOrder;
 
 public interface CreateOrderPort {
-    void create(Order order);
+    void create(InboundOrder inboundOrder);
 }

@@ -1,8 +1,10 @@
 package com.bmac.store.adapters.in.shell;
 
-import com.bmac.store.domain.Product;
-import com.bmac.store.ports.in.*;
-
+import com.bmac.store.ports.in.batch.ForwardBatchCommand;
+import com.bmac.store.ports.in.batch.ForwardBatchUseCase;
+import com.bmac.store.ports.in.order.CancelStoreOrderCommand;
+import com.bmac.store.ports.in.order.CancelStoreOrderUseCase;
+import com.bmac.store.ports.in.product.CreateStoreProductUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
@@ -22,14 +24,14 @@ public class StoreShell {
 
     private final Environment env;
     private final ForwardBatchUseCase batchForward;
-    private final CancelOrderUseCase cancelOrder;
-    private final CreateProductUseCase createProduct;
+    private final CancelStoreOrderUseCase cancelOrder;
+    private final CreateStoreProductUseCase createProduct;
 
     @Autowired
     public StoreShell(Environment env,
                       ForwardBatchUseCase batchForward,
-                      CancelOrderUseCase cancelOrder,
-                      CreateProductUseCase createProduct) {
+                      CancelStoreOrderUseCase cancelOrder,
+                      CreateStoreProductUseCase createProduct) {
         this.env = env;
         this.batchForward = batchForward;
         this.cancelOrder = cancelOrder;
@@ -44,15 +46,15 @@ public class StoreShell {
 
     @ShellMethod(key = "cancelOrder", value = "Cancel an order by its ID")
     public void cancelOrder(@ShellOption String id) {
-        cancelOrder.cancel(new CancelOrderCommand(UUID.fromString(id)));
+        cancelOrder.cancel(new CancelStoreOrderCommand(UUID.fromString(id)));
         System.out.println("Order cancelled");
     }
 
-    @ShellMethod(key = "createProduct")
-    public void createProduct(@ShellOption String name, @ShellOption double price) {
-        Product product = createProduct.create(new CreateProductCommand(name, price));
-        System.out.println("Product created with id " + product.getId());
-    }
+//    @ShellMethod(key = "createProduct")
+//    public void createProduct(@ShellOption String name, @ShellOption double price) {
+//        StoreProduct product = createProduct.create(new CreateStoreProductCommand( name, price));
+//        System.out.println("Product created with id " + product.getId());
+//    }
 
     @ShellMethod(key = "fakeOrders")
     public void fakeOrders(@ShellOption int amount) {
